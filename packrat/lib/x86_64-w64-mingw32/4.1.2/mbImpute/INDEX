@@ -1,0 +1,8 @@
+D                       Distance matrix for each pair of taxa
+data_fit2               data_fit2
+distance_mat_gen        distance_mat_gen
+edges                   edges of phylogenetic tree of Karlsson et al.
+mbImpute                mbImpute: an accurate and robust imputation
+                        method for microbiome data
+meta_data               covariates information for Karlsson et al.
+otu_tab                 OTU table for Karlsson et al.

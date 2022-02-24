@@ -1,7 +1,7 @@
 ---
 title: "1_pre_processing_data"
 author: "Jennifer Neumaier"
-date: "2/14/2022"
+date: "2/24/2022"
 output: html_document
 ---
 
@@ -13,8 +13,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Importing source files
 ```{r}
-# source("./src/0_get_raw_data.R")
-source("./src/1_get_processed_data.R")
+source("./src/0_get_raw_data.R")
 ```
 
 Importing libraries
@@ -22,6 +21,7 @@ Importing libraries
 # Filtering
 library(tidyverse)
 library(dplyr)
+library(metamicrobiomeR)
 
 # Zero-Shot Imputation
 library(mbImpute)
@@ -68,10 +68,6 @@ write.csv(EstMB_abundances_50,"./data/processed/EstMB_abundances_50.csv", row.na
 ```
 
 
-```{r}
-
-```
-
 Processing PCOS metadata and cutting out non-sequenced samples
 ```{r}
 # Transposing data frame and renaming
@@ -89,12 +85,16 @@ PCOS_metadata <- PCOS_metadata[,1:2]
 write.csv(PCOS_metadata,"./data/processed/PCOS_metadata.csv", row.names = TRUE)
 
 # cut patients from PCOS_abundances that are not in metadata
-diff <- setdiff(rownames(PCOS_abundances), PCOS_metadata$SampleID)
-PCOS_abundances <- PCOS_abundances[!(rownames(PCOS_abundances) %in% diff),]
+diff <- setdiff(PCOS_abundances$SampleID, PCOS_metadata$SampleID)
+PCOS_abundances <- PCOS_abundances[!PCOS_abundances$SampleID %in% diff,]
+write.csv(PCOS_metadata,"./data/processed/PCOS_abundances.csv", row.names = TRUE)
 ```
 
-The same for PCOS data set
-(re-do because 25 columns left over in PCO_abundances_10 is too low)
+
+Filtering data set
+Two pre-processed versions will be created:
+1. Filtering out all species that account for < 10% abundance in patients.
+2. Filtering out all species that account for < 50% abundance in patients.
 ```{r}
 # Filtering
 PCOS_abundances_10 <- PCOS_abundances
@@ -125,20 +125,37 @@ for (i in 1:length(res)) {
 }
 
 write.csv(PCOS_abundances_50,"./data/processed/PCOS_abundances_50.csv", row.names = TRUE)
-
 ```
 
 
+Filtering-looped work, same results are produced by using sapply
+(probably the more sophisticated way)
+```{r}
+prevelancedf = sapply(X = PCOS_abundances,
+                 FUN = function(x){(sum(x > 0)/nrow(PCOS_abundances))*100})
 
-The same for CRC data set
+res = prevelancedf[prevelancedf > 50.0]
+length(res)
+
+# res for prevelancedf > 10 = 25
+# res for prevelancedf > 50 = 1
+```
+
+
+Processing CRC data set and cutting out non-sequenced samples
 ```{r}
 # Transposing data frame and renaming
 CRC_abundances <- data.frame(t(CRC_abundances))
 colnames(CRC_abundances) <- CRC_abundances[1, ]
 CRC_abundances <- CRC_abundances[-1, ]
 
+CRC_abundances <- CRC_abundances %>%
+  rownames_to_column(var="SampleID")
+
+write.csv(CRC_abundances,"./data/processed/CRC_abundances.csv", row.names = TRUE)
+
 # Filtering
-# needs different approach as these are not relative counts
+# ask Oliver for approach
 
 ```
 

@@ -1,0 +1,129 @@
+---
+title: "5_Pipeline"
+author: "Jennifer Neumaier"
+date: "3/7/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Preparation
+
+Loading Source files
+```{r}
+source("./src/1_get_processed_data.R")
+source("./src/2_convenience.R")
+```
+
+Loading Libraries
+```{r}
+library("tidymodels")
+library("easyCODA")
+library("zCompositions")
+```
+
+## Pipeline 
+
+1. Filtering data for NA and correct data frame positions
+2. Imputing 
+3. Split data
+4. Transform data
+
+Import data
+```{r}
+data <- import(path = "./data/processed", pattern="PCOS_abundances", header = TRUE)
+metadata <- read.table("./data/processed/PCOS_metadata.txt", header = TRUE)
+```
+
+Merge and split data
+```{r}
+train_data <- list()
+test_data <- list()
+
+for (i in 1:length(data)){
+
+  # merge PCOS_data with metadata
+  data[[i]] <- data[[i]] %>% 
+  left_join(metadata[ ,c("SampleID", "PCOS_Riikka", "BMI")], by = "SampleID") %>% 
+  relocate(c(PCOS_Riikka, BMI), .after = SampleID) %>% 
+  select(-c(SampleID, BMI))
+
+  
+  # Split the data
+  set.seed(2022)
+  data_split <- initial_split(data[[i]], prop = 0.8, strata = PCOS_Riikka) 
+  train_data[[i]] <- training(data_split) %>% as.data.frame()
+  test_data[[i]] <- testing(data_split) %>% as.data.frame()
+  
+}
+
+names(train_data) <- names(data)
+names(test_data) <- names(data)
+
+# save integers that control training set
+idx <- data_split$in_id
+```
+
+Pre-Process data (Filtering and Imputing)
+```{r}
+processed_train <- list()
+processed_test <- list()
+
+# Filtering
+# percent.filter: 10% -> 0.10
+# relabund: 0.1% mean -> 0.001
+
+processed_train[[1]] <- taxa.filter(train_data[[1]], percent.filter = 0.10, relabund.filter = 0.001)
+processed_train[[2]] <- taxa.filter(train_data[[1]], percent.filter = 0.50, relabund.filter = 0.001)
+
+processed_test[[1]] <- taxa.filter(test_data[[1]], percent.filter = 0.10, relabund.filter = 0.001)
+processed_test[[2]] <- taxa.filter(test_data[[1]], percent.filter = 0.50, relabund.filter = 0.001)
+
+
+# Imputing
+for (i in 1:length(processed_test)){
+  dataset <- processed_test[[i]]
+  id <- dataset[i]
+  features <- dataset[,2:ncol(dataset)] 
+  
+  processed_test[[i]] <- cbind(id, cmultRepl(features, output = "p-counts")) 
+  # processed_test[[i]] <- processed_test[[i]] %>%   # mutate gives problems here due to stratification of test data -> solution?
+    # mutate_if(is.numeric, round, digits=3)
+}
+  
+for (i in 1:length(processed_train)){
+  dataset <- processed_train[[i]]
+  id <- dataset[1]
+  features <- dataset[,2:ncol(dataset)] 
+  
+  processed_train[[i]] <- cbind(id, cmultRepl(features, output = "p-counts")) 
+  processed_train[[i]] <- processed_train[[i]] %>% 
+    mutate_if(is.numeric, round, digits=3)
+}
+
+names(processed_train) <- c("PCOS_10", "PCOS_50")
+names(processed_test) <- c("PCOS_10", "PCOS_50")
+
+```
+
+Transformations
+
+-> work on for loop with only TSS and CLR for the start...
+```{r}
+transformed_train <- list()
+set <- c("10_TSS", "50_TSS", "10_CLR", "50_CLR", "10_ALR_worst", "50_ALR_worst", "10_ALR_random", "50_ALR_random", "10_ALR_optimal", "50_ALR_optimal")
+
+for (i in 1:length(set)){
+  method <- sub("\\d+\\_", "", set[i])
+  
+  for (i in 1:length(processed_train))
+    transformed_train[[i]] <- transformation(processed_train[[j]], method = method)
+    names(transformed_train[[i]]) <- set[i]
+}
+
+
+
+```
+

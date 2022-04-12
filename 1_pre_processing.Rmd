@@ -1,0 +1,247 @@
+---
+title: "1_pre_processing_data"
+author: "Jennifer Neumaier"
+date: "2/24/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Pre-Processing of Data
+
+```{r}
+setwd("D:/Master/Master Biologie/Sommersemester 2022/Master thesis/Github")
+```
+
+
+Importing libraries
+```{r}
+# Filtering
+library("tidyverse")
+
+# Zero-Shot Imputation
+library("zCompositions")
+library("mbImpute")
+library("glmnet")
+library("Matrix")
+```
+
+Importing source files
+```{r}
+# source("./src/0_get_raw_data.R")
+source("./src/1_get_processed_data.R")
+source("./src/2_convenience.R")
+```
+
+
+## EstMB
+
+Processing EstMB metadata
+```{r}
+# cut patients from PCOS_abundances that are not in metadata
+diff <- setdiff(EstMB_metadata$skood, EstMB_abundances$skood)
+EstMB_metadata <- EstMB_metadata[!EstMB_metadata$skood %in% diff,]
+
+write.table(EstMB_metadata,"./data/processed/EstMB_metadata.txt", row.names = FALSE)
+
+write.table(EstMB_abundances,"./data/processed/EstMB_abundances.txt", row.names = FALSE)
+```
+
+Filtering data set
+Two pre-processed versions will be created:
+1. Filtering out all species that account for < 10% abundance in patients.
+2. Filtering out all species that account for < 50% abundance in patients.
+3. Add mean relative abundance filter with at least 0.1% mean relative abundance.
+```{r}
+# percent.filter: 10% -> 0.10
+# relabund: 0.1% mean -> 0.001
+EstMB_abundances_10 <- taxa.filter(EstMB_abundances, percent.filter = 0.10, relabund.filter = 0.001)
+write.table(EstMB_abundances_10,"./data/processed/EstMB_abundances_10.txt", row.names = FALSE)
+
+EstMB_abundances_50 <- taxa.filter(EstMB_abundances, percent.filter = 0.50, relabund.filter = 0.001)
+write.table(EstMB_abundances_50,"./data/processed/EstMB_abundances_50.txt", row.names = FALSE)
+```
+
+Zero-Imputation EstMB
+```{r}
+# pseudocount (pc)
+EstMB_abundances_10_pc <- cbind(EstMB_abundances_10[1], cmultRepl(EstMB_abundances_10[,2:ncol(EstMB_abundances_10)], output = "p-counts"))
+EstMB_abundances_10_pc <- EstMB_abundances_10_pc %>% 
+  mutate_if(is.numeric, round, digits=3)
+
+write.table(EstMB_abundances_10_pc,"./data/processed/EstMB_abundances_10_pc.txt", row.names = FALSE)
+
+
+EstMB_abundances_50_pc <- cbind(EstMB_abundances_50[1], cmultRepl(EstMB_abundances_50[,2:ncol(EstMB_abundances_50)], output = "p-counts"))
+EstMB_abundances_50_pc <- EstMB_abundances_50_pc %>% 
+  mutate_if(is.numeric, round, digits=3)
+
+write.table(EstMB_abundances_50_pc,"./data/processed/EstMB_abundances_50_pc.txt", row.names = FALSE)
+```
+
+mbImpute
+Should ideally be used with phylogenetic information. Metadata is optional. As in this case phylogenetic information is not available, we have to impute only one condition.
+```{r}
+# mbImpute (mb)
+```
+
+
+## PCOS
+
+Processing PCOS metadata and cutting out non-sequenced samples
+```{r}
+# Transposing data frame and renaming
+PCOS_abundances <- data.frame(t(PCOS_abundances))
+
+# fit PCOS tables to EstMB design
+colnames(PCOS_abundances) <- PCOS_abundances[1,]
+PCOS_abundances <- PCOS_abundances[-1,]
+
+PCOS_abundances <- PCOS_abundances %>%
+  rownames_to_column(var="SampleID")
+
+# Keeping only phenotype column of metadata (PCOS_Riikka) and BMI (C6646C_weigth_height_007)
+PCOS_metadata <- PCOS_metadata[,c("SampleID", "PCOS_Riikka", "C6646C_weigth_height_007")]
+PCOS_metadata <- PCOS_metadata %>% 
+  rename(BMI = C6646C_weigth_height_007) 
+write.table(PCOS_metadata,"./data/processed/PCOS_metadata.txt", row.names = FALSE)
+
+# cut patients from PCOS_abundances that are not in metadata
+diff <- setdiff(PCOS_abundances$SampleID, PCOS_metadata$SampleID)
+PCOS_abundances <- PCOS_abundances[!PCOS_abundances$SampleID %in% diff,]
+
+# convert all entries to numeric
+PCOS_abundances <- PCOS_abundances %>% 
+  mutate_at(vars(-("SampleID")),function(x) as.numeric(x))
+
+write.table(PCOS_abundances,"./data/processed/PCOS_abundances.txt", row.names = FALSE)
+```
+
+Filtering data set
+Two pre-processed versions will be created:
+1. Filtering out all species that account for < 10% abundance in patients.
+2. Filtering out all species that account for < 50% abundance in patients.
+3. Add mean relative abundance filter with at least 0.1% mean relative abundance.
+```{r}
+# percent.filter: 10% -> 0.10
+# relabund: 0.1% mean -> 0.1
+PCOS_abundances_10 <- taxa.filter(PCOS_abundances, percent.filter = 0.10, relabund.filter = 0.001)
+write.table(PCOS_abundances_10,"./data/processed/PCOS_abundances_10.txt", row.names = FALSE)
+
+PCOS_abundances_50 <- taxa.filter(PCOS_abundances, percent.filter = 0.50, relabund.filter = 0.001)
+write.table(PCOS_abundances_50,"./data/processed/PCOS_abundances_50.txt", row.names = FALSE)
+```
+
+Zero-Imputation PCOS
+```{r}
+# pseudocount (pc)
+# use zCompositions, round all values and if they are smaller than 0, replace with 1
+PCOS_abundances_10_pc <- cbind(PCOS_abundances_10[1], cmultRepl(PCOS_abundances_10[,2:ncol(PCOS_abundances_10)], output = "p-counts"))
+PCOS_abundances_10_pc <- PCOS_abundances_10_pc %>% 
+  mutate_if(is.numeric, round, digits=3)
+
+write.table(PCOS_abundances_10_pc,"./data/processed/PCOS_abundances_10_pc.txt", row.names = FALSE)
+
+
+PCOS_abundances_50_pc <- cbind(PCOS_abundances_50[1], cmultRepl(PCOS_abundances_50[,2:ncol(PCOS_abundances_50)], output = "p-counts"))
+PCOS_abundances_50_pc <- PCOS_abundances_50_pc %>% 
+  mutate_if(is.numeric, round, digits=3)
+
+write.table(PCOS_abundances_50_pc,"./data/processed/PCOS_abundances_50_pc.txt", row.names = FALSE)
+```
+
+mbImpute
+Should ideally be used with phylogenetic information. Metadata is optional. As in this case phylogenetic information is not available, we have to impute only one condition.
+```{r}
+# mbImpute (mb)
+```
+
+
+## CRC
+Processing CRC data set and cutting out non-sequenced samples
+
+needs work -> too many samples in abundance table compared to metadata -> cut out here
+```{r}
+# rename Sample_ID column and replace all - with . in SampleIDs. 
+names(CRC_metadata)[names(CRC_metadata) == "Sample_ID"] <- "SampleID"
+CRC_metadata$SampleID <- chartr("-", ".", CRC_metadata$SampleID)
+
+# delete rows where BMI is missing and keep one data set back as holdout
+CRC_metadata <- CRC_metadata %>% 
+  drop_na(BMI, Group)
+
+CRC_metadata_holdout <- CRC_metadata %>% 
+  filter(grepl("GER", Country))
+
+CRC_metadata <- CRC_metadata %>% 
+  filter(!grepl("GER", Country))
+
+write.table(CRC_metadata,"./data/processed/CRC_metadata.txt", row.names = FALSE)
+write.table(CRC_metadata_holdout,"./data/processed/CRC_metadata_holdout.txt", row.names = FALSE)
+
+# Transposing data frame and renaming
+CRC_abundances <- data.frame(t(CRC_abundances))
+
+# make extra column SampleID
+CRC_abundances <- cbind(SampleID = rownames(CRC_abundances), CRC_abundances)
+rownames(CRC_abundances) <- 1:nrow(CRC_abundances)
+
+# delete rows in abundance table that were removed from metadata
+diff <- setdiff(CRC_abundances$SampleID, CRC_metadata$SampleID)
+CRC_abundances <- CRC_abundances[!CRC_abundances$SampleID %in% diff,]
+
+write.table(CRC_abundances,"./data/processed/CRC_abundances.txt", row.names = FALSE)
+
+# create abundance table of holdout data
+diff <- setdiff(CRC_abundances$SampleID, CRC_metadata_holdout$SampleID)
+CRC_abundances_holdout <- CRC_abundances[!CRC_abundances$SampleID %in% diff,]
+
+write.table(CRC_abundances_holdout,"./data/processed/CRC_abundances_holdout.txt", row.names = FALSE)
+
+```
+
+Filtering data set
+Two pre-processed versions will be created:
+1. Filtering out all species that account for < 10% abundance in patients.
+2. Filtering out all species that account for < 50% abundance in patients.
+3. Add mean relative abundance filter with at least 0.1% mean relative abundance.
+```{r}
+# Filtering
+# percent.filter: 10% -> 0.10
+# relabund: 0.1% mean -> 0.001
+CRC_abundances_10 <- taxa.filter(CRC_abundances, percent.filter = 0.10, relabund.filter = 0.001)
+write.table(CRC_abundances_10,"./data/processed/CRC_abundances_10.txt", row.names = FALSE)
+
+CRC_abundances_50 <- taxa.filter(CRC_abundances, percent.filter = 0.50, relabund.filter = 0.001)
+write.table(CRC_abundances_50,"./data/processed/CRC_abundances_50.txt", row.names = FALSE)
+
+# # after filtering, some rows still contained only zeros -> filtering them out manually
+# CRC_abundances_10 <- CRC_abundances_10 %>%
+#   filter(rowSums(across(where(is.numeric)))!=0)
+# write.table(CRC_abundances_10,"./data/processed/CRC_abundances_10.txt", row.names = FALSE)
+# 
+# CRC_abundances_50 <- CRC_abundances_50 %>%
+#   filter(rowSums(across(where(is.numeric)))!=0)
+# write.table(CRC_abundances_50,"./data/processed/CRC_abundances_50.txt", row.names = FALSE)
+```
+
+Zero-Imputation CRC
+```{r}
+# pseudocount (pc)
+CRC_abundances_10_pc <- cbind(CRC_abundances_10[1], cmultRepl(CRC_abundances_10[,2:ncol(CRC_abundances_10)], output = "p-counts"))
+CRC_abundances_10_pc <- CRC_abundances_10_pc %>% 
+  mutate_if(is.numeric, round, digits=3)
+
+write.table(CRC_abundances_10_pc,"./data/processed/CRC_abundances_10_pc.txt", row.names = FALSE)
+
+
+CRC_abundances_50_pc <- cbind(CRC_abundances_50[1], cmultRepl(CRC_abundances_50[,2:ncol(CRC_abundances_50)], output = "p-counts"))
+CRC_abundances_50_pc <- CRC_abundances_50_pc %>% 
+  mutate_if(is.numeric, round, digits=3)
+
+
+write.table(CRC_abundances_50_pc,"./data/processed/CRC_abundances_50_pc.txt", row.names = FALSE)
+```
+

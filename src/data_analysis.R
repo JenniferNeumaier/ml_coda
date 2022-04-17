@@ -1,50 +1,4 @@
-sigmoid <- function(x) {
-  return(1/(1 + exp(-x)))
-}
- 
-
-logit <- function(x, w) {
-  random_number <- runif(length(x), min  = 0, max = 1)
-  return(sample(random_number, 1) <= sigmoid((x - 0.5) %*% w))
-}
-
-
-data_sampler <- function(n, k, f){ 
-  
-  #     Data generator that generates n x k feature matrix and a target vector
-  #     
-  #     Returns a data frame with columns x1, ..., xk from randomised uniform distribution.
-  #     y is computed using labelling function f.
-  dataframe <- data.frame(matrix(runif(n*k, min = 0, max = 1), n, k))
-  dataframe <- sapply(dataframe, function(x) {x >= 0.5})
-  # dataframe[ ,ncol(dataframe) + 1] <- apply(dataframe, 1, function(x) f)
-  
-  return(dataframe)
-}
-
-
-microbiome_sampler <- function(n,k){
-  columns <- paste(rep("OTU", k), seq(1,k,1), sep = "_")
-  dataframe <- data.frame(round(matrix(runif(n*k, min = 1, max = 2000), n, k)))
-  colnames(dataframe) <- columns
-  dataframe$y <- rnorm(n)
-  dataframe$y <- ifelse(dataframe$y > 0, 1, 0)
-  dataframe <- dataframe %>% 
-    relocate(y)
-  return(dataframe)
-} 
-
-# Import data
-import <- function(path = path, pattern = pattern, header = header) {
-  # import cluster data
-  temp <- list.files(path = path, pattern = pattern, full.names = TRUE)
-  data_list <- lapply(temp, function(x) read.table(x, header = header))
-  
-  # extract cluster names and name data_list
-  data_names <- lapply(temp, function(x) sub("\\.[[:alnum:]]+$", "", basename(as.character(x))))
-  names(data_list) <- data_names
-  return(data_list)
-}
+# library("easyCODA")
 
 
 # modified from https://github.com/nhanhocu/metamicrobiomeR/blob/master/R/taxa.filter.R
@@ -55,10 +9,10 @@ taxa.filter<-function(taxtab, percent.filter=percent.filter, relabund.filter=rel
   taxlist<-colnames(taxdat[,2:ncol(taxdat)])
   # filter using percent.filter
   taxtest <- apply(taxdat[,taxlist],2,function(x){length(x[!is.na(x)&x>0])})
-  taxget<-taxtest[taxtest>=percent.filter*(nrow(taxdat))]
+  taxget<-taxtest[taxtest>= as.numeric(percent.filter)*(nrow(taxdat))]
   #filter using relabund.filter
   taxtestm<-apply(taxdat[,taxlist],2,mean,na.rm=T)
-  taxgetm<-taxtestm[taxtestm>relabund.filter]
+  taxgetm<-taxtestm[taxtestm>as.numeric(relabund.filter)]
   taxlistf<-c(names(taxget)[names(taxget) %in% names(taxgetm)])
   # make new processed data frame
   dataframe <- cbind(taxtab[1], subset(taxdat, select = c(taxlistf)))
@@ -66,7 +20,7 @@ taxa.filter<-function(taxtab, percent.filter=percent.filter, relabund.filter=rel
 }
 
 
-TSS <- function(data){
+my_TSS <- function(data){
   res <- data %>% 
     mutate_if(is.numeric, function(x) (x-min(x))/(max(x)-min(x)))
   return(res)
@@ -127,7 +81,6 @@ my_optimal_ALR <- function(data){
 }
 
 
-
 my_worst_ALR <- function(data){
   # split data into IDs and features
   idx <- data[1]
@@ -143,7 +96,7 @@ my_worst_ALR <- function(data){
   # last 20 for log variance (features with highest variance)
   names(alr.refs$var.log) <- colnames(features)
   res_variance <- alr.refs$var.log[order(alr.refs$var.log, decreasing = TRUE)][1:20]
-
+  
   # find best overlap
   diff <- intersect(names(res_procrustes), names(res_variance))
   denominator <- diff[1]
@@ -234,10 +187,9 @@ transformation <- function(data = data, method = c("ALR_optimal", "ALR_worst", "
                 ifelse(method == "ALR_random",  res <- my_random_ALR(data),
                        ifelse(method == "CLR",  res <- my_CLR(data), 
                               ifelse(method == "TSS", res <- TSS(data))
-                              )
+                       )
                 )
          )
   )
   return(res)
 }
-

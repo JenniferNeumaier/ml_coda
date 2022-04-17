@@ -23,16 +23,13 @@ library("tidyverse")
 
 # Zero-Shot Imputation
 library("zCompositions")
-library("mbImpute")
-library("glmnet")
-library("Matrix")
 ```
 
 Importing source files
 ```{r}
 # source("./src/0_get_raw_data.R")
-source("./src/1_get_processed_data.R")
-source("./src/2_convenience.R")
+source("./src/data_analysis.R")
+source("./src/convenience.R")
 ```
 
 
@@ -40,9 +37,18 @@ source("./src/2_convenience.R")
 
 Processing EstMB metadata
 ```{r}
-# cut patients from PCOS_abundances that are not in metadata
-diff <- setdiff(EstMB_metadata$skood, EstMB_abundances$skood)
-EstMB_metadata <- EstMB_metadata[!EstMB_metadata$skood %in% diff,]
+EstMB_abundances <- EstMB_abundances %>% 
+  rename("SampleID" = skood)
+
+EstMB_metadata <- EstMB_metadata %>% 
+  rename("SampleID" = skood)
+
+EstMB_metadata <- EstMB_metadata %>% 
+  drop_na(F41, I11, E11, BMI, Age_at_MBsample)
+
+# cut patients from EstMB_abundances that are not in metadata
+diff <- setdiff(EstMB_abundances$SampleID, EstMB_metadata$SampleID)
+EstMB_abundances <- EstMB_abundances[!EstMB_abundances$SampleID %in% diff,]
 
 write.table(EstMB_metadata,"./data/processed/EstMB_metadata.txt", row.names = FALSE)
 
@@ -58,10 +64,10 @@ Two pre-processed versions will be created:
 # percent.filter: 10% -> 0.10
 # relabund: 0.1% mean -> 0.001
 EstMB_abundances_10 <- taxa.filter(EstMB_abundances, percent.filter = 0.10, relabund.filter = 0.001)
-write.table(EstMB_abundances_10,"./data/processed/EstMB_abundances_10.txt", row.names = FALSE)
+write.table(EstMB_abundances_10,"./data/processed/filtered/EstMB_abundances_10.txt", row.names = FALSE)
 
 EstMB_abundances_50 <- taxa.filter(EstMB_abundances, percent.filter = 0.50, relabund.filter = 0.001)
-write.table(EstMB_abundances_50,"./data/processed/EstMB_abundances_50.txt", row.names = FALSE)
+write.table(EstMB_abundances_50,"./data/processed/filtered/EstMB_abundances_50.txt", row.names = FALSE)
 ```
 
 Zero-Imputation EstMB
@@ -71,14 +77,14 @@ EstMB_abundances_10_pc <- cbind(EstMB_abundances_10[1], cmultRepl(EstMB_abundanc
 EstMB_abundances_10_pc <- EstMB_abundances_10_pc %>% 
   mutate_if(is.numeric, round, digits=3)
 
-write.table(EstMB_abundances_10_pc,"./data/processed/EstMB_abundances_10_pc.txt", row.names = FALSE)
+write.table(EstMB_abundances_10_pc,"./data/processed/imputed/EstMB_abundances_10_pc.txt", row.names = FALSE)
 
 
 EstMB_abundances_50_pc <- cbind(EstMB_abundances_50[1], cmultRepl(EstMB_abundances_50[,2:ncol(EstMB_abundances_50)], output = "p-counts"))
 EstMB_abundances_50_pc <- EstMB_abundances_50_pc %>% 
   mutate_if(is.numeric, round, digits=3)
 
-write.table(EstMB_abundances_50_pc,"./data/processed/EstMB_abundances_50_pc.txt", row.names = FALSE)
+write.table(EstMB_abundances_50_pc,"./data/processed/imputed/EstMB_abundances_50_pc.txt", row.names = FALSE)
 ```
 
 mbImpute
@@ -128,10 +134,10 @@ Two pre-processed versions will be created:
 # percent.filter: 10% -> 0.10
 # relabund: 0.1% mean -> 0.1
 PCOS_abundances_10 <- taxa.filter(PCOS_abundances, percent.filter = 0.10, relabund.filter = 0.001)
-write.table(PCOS_abundances_10,"./data/processed/PCOS_abundances_10.txt", row.names = FALSE)
+write.table(PCOS_abundances_10,"./data/processed/filtered/PCOS_abundances_10.txt", row.names = FALSE)
 
 PCOS_abundances_50 <- taxa.filter(PCOS_abundances, percent.filter = 0.50, relabund.filter = 0.001)
-write.table(PCOS_abundances_50,"./data/processed/PCOS_abundances_50.txt", row.names = FALSE)
+write.table(PCOS_abundances_50,"./data/processed/filtered/PCOS_abundances_50.txt", row.names = FALSE)
 ```
 
 Zero-Imputation PCOS
@@ -142,14 +148,14 @@ PCOS_abundances_10_pc <- cbind(PCOS_abundances_10[1], cmultRepl(PCOS_abundances_
 PCOS_abundances_10_pc <- PCOS_abundances_10_pc %>% 
   mutate_if(is.numeric, round, digits=3)
 
-write.table(PCOS_abundances_10_pc,"./data/processed/PCOS_abundances_10_pc.txt", row.names = FALSE)
+write.table(PCOS_abundances_10_pc,"./data/processed/imputed/PCOS_abundances_10_pc.txt", row.names = FALSE)
 
 
 PCOS_abundances_50_pc <- cbind(PCOS_abundances_50[1], cmultRepl(PCOS_abundances_50[,2:ncol(PCOS_abundances_50)], output = "p-counts"))
 PCOS_abundances_50_pc <- PCOS_abundances_50_pc %>% 
   mutate_if(is.numeric, round, digits=3)
 
-write.table(PCOS_abundances_50_pc,"./data/processed/PCOS_abundances_50_pc.txt", row.names = FALSE)
+write.table(PCOS_abundances_50_pc,"./data/processed/imputed/PCOS_abundances_50_pc.txt", row.names = FALSE)
 ```
 
 mbImpute
@@ -172,14 +178,7 @@ CRC_metadata$SampleID <- chartr("-", ".", CRC_metadata$SampleID)
 CRC_metadata <- CRC_metadata %>% 
   drop_na(BMI, Group)
 
-CRC_metadata_holdout <- CRC_metadata %>% 
-  filter(grepl("GER", Country))
-
-CRC_metadata <- CRC_metadata %>% 
-  filter(!grepl("GER", Country))
-
 write.table(CRC_metadata,"./data/processed/CRC_metadata.txt", row.names = FALSE)
-write.table(CRC_metadata_holdout,"./data/processed/CRC_metadata_holdout.txt", row.names = FALSE)
 
 # Transposing data frame and renaming
 CRC_abundances <- data.frame(t(CRC_abundances))
@@ -193,13 +192,6 @@ diff <- setdiff(CRC_abundances$SampleID, CRC_metadata$SampleID)
 CRC_abundances <- CRC_abundances[!CRC_abundances$SampleID %in% diff,]
 
 write.table(CRC_abundances,"./data/processed/CRC_abundances.txt", row.names = FALSE)
-
-# create abundance table of holdout data
-diff <- setdiff(CRC_abundances$SampleID, CRC_metadata_holdout$SampleID)
-CRC_abundances_holdout <- CRC_abundances[!CRC_abundances$SampleID %in% diff,]
-
-write.table(CRC_abundances_holdout,"./data/processed/CRC_abundances_holdout.txt", row.names = FALSE)
-
 ```
 
 Filtering data set
@@ -212,19 +204,10 @@ Two pre-processed versions will be created:
 # percent.filter: 10% -> 0.10
 # relabund: 0.1% mean -> 0.001
 CRC_abundances_10 <- taxa.filter(CRC_abundances, percent.filter = 0.10, relabund.filter = 0.001)
-write.table(CRC_abundances_10,"./data/processed/CRC_abundances_10.txt", row.names = FALSE)
+write.table(CRC_abundances_10,"./data/processed/filtered/CRC_abundances_10.txt", row.names = FALSE)
 
 CRC_abundances_50 <- taxa.filter(CRC_abundances, percent.filter = 0.50, relabund.filter = 0.001)
-write.table(CRC_abundances_50,"./data/processed/CRC_abundances_50.txt", row.names = FALSE)
-
-# # after filtering, some rows still contained only zeros -> filtering them out manually
-# CRC_abundances_10 <- CRC_abundances_10 %>%
-#   filter(rowSums(across(where(is.numeric)))!=0)
-# write.table(CRC_abundances_10,"./data/processed/CRC_abundances_10.txt", row.names = FALSE)
-# 
-# CRC_abundances_50 <- CRC_abundances_50 %>%
-#   filter(rowSums(across(where(is.numeric)))!=0)
-# write.table(CRC_abundances_50,"./data/processed/CRC_abundances_50.txt", row.names = FALSE)
+write.table(CRC_abundances_50,"./data/processed/filtered/CRC_abundances_50.txt", row.names = FALSE)
 ```
 
 Zero-Imputation CRC
@@ -234,7 +217,7 @@ CRC_abundances_10_pc <- cbind(CRC_abundances_10[1], cmultRepl(CRC_abundances_10[
 CRC_abundances_10_pc <- CRC_abundances_10_pc %>% 
   mutate_if(is.numeric, round, digits=3)
 
-write.table(CRC_abundances_10_pc,"./data/processed/CRC_abundances_10_pc.txt", row.names = FALSE)
+write.table(CRC_abundances_10_pc,"./data/processed/imputed/CRC_abundances_10_pc.txt", row.names = FALSE)
 
 
 CRC_abundances_50_pc <- cbind(CRC_abundances_50[1], cmultRepl(CRC_abundances_50[,2:ncol(CRC_abundances_50)], output = "p-counts"))
@@ -242,6 +225,6 @@ CRC_abundances_50_pc <- CRC_abundances_50_pc %>%
   mutate_if(is.numeric, round, digits=3)
 
 
-write.table(CRC_abundances_50_pc,"./data/processed/CRC_abundances_50_pc.txt", row.names = FALSE)
+write.table(CRC_abundances_50_pc,"./data/processed/imputed/CRC_abundances_50_pc.txt", row.names = FALSE)
 ```
 

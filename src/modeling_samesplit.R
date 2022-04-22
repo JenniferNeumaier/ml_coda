@@ -63,10 +63,10 @@ loss_function <- args[6] # AUC or RMSE
 
 # Load packages
 library("stringr")
-library("dyplr")
-library("tidymodels")
+library("dplyr")
 library("mikropml")
 library("codacore")
+
 
 # Load src documents
 source("./convenience.R")
@@ -336,7 +336,7 @@ test_df <- test_df %>%
 # combine and outout
 final <- rbind(training_df, test_df)
 
-write.table(final, paste("../out/table_codacore", predictor, model_name, loss_function, ".txt", sep = "_", collapse = NULL), row.names = FALSE)
+write.table(final, paste("../out/table_mikrop", predictor, model_name, loss_function, ".txt", sep = "_", collapse = NULL), row.names = FALSE)
 
 
 ## codacore

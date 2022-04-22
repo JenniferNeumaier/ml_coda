@@ -44,12 +44,15 @@ output_path <- args[3]
 library("dplyr")
 library("zCompositions")
 
+
 # Load source scripts
 source("./convenience.R")
 source("./data_analysis.R")
 
 
 # Read count matrix used as input (genes, species etc)
+print("Importing data...")
+
 count_data <- read.table(data_file, header = TRUE)
 
 print("Imported data!")
@@ -62,7 +65,7 @@ print("Imported data!")
 #------------------------------------------------#
 
 
-imputed_data <- cbind(imputed_data[1], cmultRepl(imputed_data[,2:ncol(imputed_data)], output = method))
+imputed_data <- cbind(count_data[1], cmultRepl(count_data[,2:ncol(count_data)], output = method))
 
 imputed_data <- imputed_data %>% 
   mutate_if(is.numeric, round, digits=3)

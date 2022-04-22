@@ -42,6 +42,8 @@ output_path <- args[3]
 
 # Load packages
 library("dplyr")
+library("easyCODA")
+library("purrr")
 
 # Load source scripts
 source("./convenience.R")
@@ -49,9 +51,11 @@ source("./data_analysis.R")
 
 
 # Read count matrix used as input (genes, species etc)
+print("Importing data...")
+
 count_data <- read.table(data_file, header = TRUE)
 
-print("Imported data!")
+print("Finished importing data!")
 
 # Data transformations ----
 #------------------------------------------------#
@@ -68,15 +72,15 @@ if (preprocessing == "TSS"){
   
   data_transformed <- my_CLR(count_data)
   
-} else if (preprocessing == "ALR_optimal"){
+} else if (preprocessing == "ALRo"){
   
   data_transformed <- my_optimal_ALR(count_data)
   
-} else if (preprocessing == "ALR_worst"){
+} else if (preprocessing == "ALRw"){
   
   data_transformed <- my_worst_ALR(count_data)
   
-} else if (preprocessing == "ALR_random"){
+} else if (preprocessing == "ALRr"){
   
   data_transformed <- my_random_ALR(count_data)
   
@@ -91,6 +95,6 @@ print("Successfully transformed data!")
 #                                                #
 #------------------------------------------------#
 
-write.table(data_transformed, output_path, row.names = FALSE)
+write.table(data_transformed, paste(output_path, "transform", preprocessing, ".txt", sep = "_", collapse = NULL), row.names = FALSE)
 
 print("Finished script!")

@@ -46,10 +46,11 @@ import <- function(path = path, pattern = pattern, header = header) {
   return(data_list)
 }
 
-outersect <- function(x, y, ...) {
-  big.vec <- c(x, y, ...)
+outersect <- function(x, y) {
+  big.vec <- c(x, y)
   duplicates <- big.vec[duplicated(big.vec)]
-  setdiff(big.vec, unique(duplicates))
+  diff <- setdiff(big.vec, unique(duplicates))
+  return(diff)
 }
 
 

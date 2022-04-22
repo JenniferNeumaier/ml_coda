@@ -1,4 +1,4 @@
-# library("easyCODA")
+library("easyCODA")
 
 
 # modified from https://github.com/nhanhocu/metamicrobiomeR/blob/master/R/taxa.filter.R
@@ -186,7 +186,7 @@ transformation <- function(data = data, method = c("ALR_optimal", "ALR_worst", "
          ifelse(method == "ALR_worst", res <- my_worst_ALR(data), 
                 ifelse(method == "ALR_random",  res <- my_random_ALR(data),
                        ifelse(method == "CLR",  res <- my_CLR(data), 
-                              ifelse(method == "TSS", res <- TSS(data))
+                              ifelse(method == "TSS", res <- my_TSS(data))
                        )
                 )
          )

@@ -178,7 +178,7 @@ CRC_metadata$SampleID <- chartr("-", ".", CRC_metadata$SampleID)
 CRC_metadata <- CRC_metadata %>% 
   drop_na(BMI, Group)
 
-write.table(CRC_metadata,"./data/processed/CRC_metadata.txt", row.names = FALSE)
+write.table(CRC_metadata,"../data/processed/CRC_metadata.txt", row.names = FALSE)
 
 # Transposing data frame and renaming
 CRC_abundances <- data.frame(t(CRC_abundances))
@@ -186,12 +186,13 @@ CRC_abundances <- data.frame(t(CRC_abundances))
 # make extra column SampleID
 CRC_abundances <- cbind(SampleID = rownames(CRC_abundances), CRC_abundances)
 rownames(CRC_abundances) <- 1:nrow(CRC_abundances)
+CRC_abundances["X.1"] <- NULL
 
 # delete rows in abundance table that were removed from metadata
 diff <- setdiff(CRC_abundances$SampleID, CRC_metadata$SampleID)
 CRC_abundances <- CRC_abundances[!CRC_abundances$SampleID %in% diff,]
 
-write.table(CRC_abundances,"./data/processed/CRC_abundances.txt", row.names = FALSE)
+write.table(CRC_abundances,"../data/processed/CRC_abundances.txt", row.names = FALSE)
 ```
 
 Filtering data set

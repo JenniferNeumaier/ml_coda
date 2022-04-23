@@ -15,7 +15,7 @@ source("./src/convenience.R")
 source("./src/data_analysis.R")
 
 # Import files
-table_models <- read.table("../out/table_codacore_BMI.txt", header = TRUE)
+table_models <- read.table("../out/CRC_holdout/table_codacore_GER_Group_glmnet_AUC_.txt", header = TRUE)
 
 facet_labels <- c(
    "10" = "10% abundance filter",
@@ -26,7 +26,7 @@ facet_labels <- c(
 graph <- ggplot(table_models, aes(x = transformation, y = loss, fill = type)) + 
   geom_boxplot() + 
   facet_wrap(~filtering, labeller = as_labeller(facet_labels), scale="free_x") + 
-  labs(title = "GLM for PCOS data", x = "Transformationen", y = "AUC") +
+  labs(title = "GLM for CRC data", x = "Transformations", y = "AUC") +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 graph
 
@@ -34,7 +34,7 @@ graph
 graph <- ggplot(table_models, aes(x = model, y = loss, fill = type)) + 
   geom_boxplot() + 
   facet_wrap(~filtering, labeller = as_labeller(facet_labels), scale="free_x") + 
-  labs(title = "Codacore for PCOS data", x = "Codacore models", y = "RMSE") +
+  labs(title = "Codacore for CRC data", x = "Codacore", y = "AUC") +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 graph
 
@@ -49,7 +49,7 @@ ggsave(plot = graph, filename = "./figs/figure.jpeg", device = "jpeg", height = 
 #                                                #
 #------------------------------------------------#
 
-tables <- import(path = "./out", pattern = ".*(PCOS*).*", header = TRUE)
+tables <- import(path = "../out/leaky_nonleaky", pattern = ".*(Group*).*", header = TRUE)
 
 df <- data.frame()
 for(i in 1:length(tables)){
@@ -65,7 +65,8 @@ for(i in 1:length(tables)){
 graph <- ggplot(df, aes(x = transformation, y = loss, fill = type)) + 
   geom_boxplot() + 
   facet_wrap(~preprocessing, scale="free_x") + 
-  labs(title = "Influence of Transformation on Preprocessing", x = "Transformations", y = "AUC", ylim = c(0.40, 0.60)) +
+  labs(title = "Influence of Transformation on Data Leakage", x = "Transformations", y = "AUC", ylim = c(0.40, 0.60)) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 graph
+
 

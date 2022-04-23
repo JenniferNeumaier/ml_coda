@@ -31,7 +31,7 @@ file_path <- "../data/CRC/"
 metadata_file <- "../data/CRC/CRC_metadata.txt"
 
 # Declare Predictor
-predictor <- "BMI" 
+predictor <- "Group" 
 
 # Number of repeats per data set
 n_repeats <- 10
@@ -44,7 +44,7 @@ if (n_repeats == 0) {
 model_name <- "glmnet" #glmnet or xgboost
 
 # Declare type of loss function
-loss_function <- "RMSE" # AUC or RMSE
+loss_function <- "AUC" # AUC or RMSE
 
 # Declare number of kfolds
 # kfolds <- args[7]
@@ -52,6 +52,9 @@ loss_function <- "RMSE" # AUC or RMSE
 # Declare number if CV times
 
 # cv_times <- args[8]
+
+# Declare country code
+country <- "AUS"
 
 
 # Program setup phase ----
@@ -91,7 +94,7 @@ print("Imported data!")
 
 # set variables
 merge_id <- names(metadata[1])
-leftover_factors <- outersect(c(merge_id, predictor), names(metadata))
+leftover_factors <- outersect(c(merge_id, predictor, "Country"), names(metadata))
 
 
 # merge data used for mikrop models
@@ -101,7 +104,6 @@ for (i in 1:length(data_transformed)){
     relocate(c(predictor, leftover_factors), .after = merge_id) %>% 
     dplyr::select(-c(merge_id, leftover_factors))
 }
-
 
 # merge data used for codacore and also split
 train_data <- list()
@@ -116,16 +118,33 @@ for (i in 1:length(data_imputed)){
     dplyr::select(-c(merge_id, leftover_factors))
   
   # Split the data
-  set.seed(2022)
-  data_split <- initial_split(data_imputed[[i]], prop = 0.8, strata = predictor) 
-  train_data[[i]] <- training(data_split) %>% as.data.frame()
-  test_data[[i]] <- testing(data_split) %>% as.data.frame()
+  train_data[[i]] <- data_imputed[[i]] %>%
+    filter(!grepl(country, Country)) %>%
+    dplyr::select(-c(Country))
   
+  test_data[[i]] <- data_imputed[[i]] %>%
+    filter(grepl(country, Country)) %>%
+    dplyr::select(-c(Country))
 }
 
 
-# save integers that control training set
-idx <- data_split$in_id
+# save ids for data not belonging to selected country
+idx <- data_imputed[[1]] %>%
+  rownames_to_column() %>%
+  filter(!grepl(country, Country)) %>%
+  `[[`("rowname") %>%
+  as.numeric()
+
+# remove column "Country"
+for(i in 1:length(data_transformed)){
+  data_transformed[[i]] <- data_transformed[[i]] %>%
+    dplyr::select(-c(Country))
+}
+
+for(i in 1:length(data_imputed)){
+  data_imputed[[i]] <- data_imputed[[i]] %>%
+    dplyr::select(-c(Country))
+}
 
 
 # Mikropml ----
@@ -296,12 +315,12 @@ for (i in 1:length(train_data)) {
                              as.numeric(ModelMetrics::rmse(actual = y_test, predicted = pred_bal_1, quiet = T)))
         }
       )
-  }
-  
-  # save lists in final list
-  coda_training[[i]] <- training_res
-  coda_test[[i]] <- test_res
-  
+    }
+    
+    # save lists in final list
+    coda_training[[i]] <- training_res
+    coda_test[[i]] <- test_res
+    
   }
 }
 
@@ -339,7 +358,7 @@ test_df <- test_df %>%
 # combine and outout
 final <- rbind(training_df, test_df)
 
-write.table(final, paste("../out/table_mikrop", predictor, model_name, loss_function, ".txt", sep = "_", collapse = NULL), row.names = FALSE)
+write.table(final, paste("../out/table_mikrop", country, predictor, model_name, loss_function, ".txt", sep = "_", collapse = NULL), row.names = FALSE)
 
 
 ## codacore
@@ -388,5 +407,5 @@ for(i in 1:length(coda_test)){
 # combine and output
 final <- rbind(training_df, test_df)
 
-write.table(final, paste("../out/table_codacore", predictor, model_name, loss_function, ".txt", sep = "_", collapse = NULL), row.names = FALSE)
+write.table(final, paste("../out/table_codacore", country, predictor, model_name, loss_function, ".txt", sep = "_", collapse = NULL), row.names = FALSE)
 

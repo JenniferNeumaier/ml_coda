@@ -54,7 +54,7 @@ loss_function <- "AUC" # AUC or RMSE
 # cv_times <- args[8]
 
 # Declare country code
-country <- "AUS"
+country <- "FRA"
 
 
 # Program setup phase ----

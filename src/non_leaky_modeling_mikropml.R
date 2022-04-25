@@ -22,16 +22,16 @@ if (length(args) == 0) {
 
 
 # Declare file path of data
-file_path <- "./data/PCOS/PCOS_abundances_10.txt"
+file_path <- "../data/CRC/CRC_abundances_10.txt"
 
 # Declare file path for metadata
-metadata_file <- "./data/PCOS/PCOS_metadata.txt"
+metadata_file <- "../data/CRC/CRC_metadata.txt"
 
 # Declare Predictor
-predictor <- "PCOS_Riikka" 
+predictor <- "Group" 
 
 # Transformation
-pre_processing <- "TSS"
+pre_processing <- "ALR_optimal"
 
 # Number of repeats per data set
 n_repeats <- 10
@@ -54,9 +54,6 @@ training_frac <- 0.8
 # Declare seed 
 seed <- 2022
 
-# Declare country as holdout set
-# country <- "GER" # GER, FRA, CHI, USA, AUS
-
 
 # Program setup phase ----
 #------------------------------------------------#
@@ -72,8 +69,8 @@ library("tidymodels")
 library("mikropml")
 
 # Load src documents
-source("./src/convenience.R")
-source("./src/data_analysis.R")
+source("./convenience.R")
+source("./data_analysis.R")
 
 
 # Import data
@@ -122,7 +119,7 @@ data_set <- data_set %>%
 
 # Split the data
 set.seed(2022)
-data_split <- initial_split(data_set, prop = 0.8, strata = predictor) 
+data_split <- initial_split(data_set, prop = training_frac, strata = predictor) 
 train_data <- training(data_split) %>% as.data.frame()
 test_data <- testing(data_split) %>% as.data.frame()
 
@@ -233,5 +230,5 @@ test_df <- data.frame("loss" = unlist(mikrop_test),
 # combine and outout
 final <- rbind(training_df, test_df)
 
-write.table(final, paste("./out/PCOS_nonleaky", predictor, model_name, loss_function, pre_processing, ".txt", sep = "_", collapse = NULL), row.names = FALSE)
+write.table(final, paste("../out/CRC_nonleaky", predictor, model_name, loss_function, pre_processing, ".txt", sep = "_", collapse = NULL), row.names = FALSE)
 

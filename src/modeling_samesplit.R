@@ -31,7 +31,7 @@ file_path <- "../data/CRC/"
 metadata_file <- "../data/CRC/CRC_metadata.txt"
 
 # Declare Predictor
-predictor <- "BMI" 
+predictor <- "Group" 
 
 # Number of repeats per data set
 n_repeats <- 10
@@ -41,10 +41,13 @@ if (n_repeats == 0) {
 }
 
 # Declare model type
-model_name <- "glmnet" #glmnet or xgboost
+model_name <- "xgbTree" #glmnet or xgbTree (xgboost)
 
 # Declare type of loss function
-loss_function <- "RMSE" # AUC or RMSE
+loss_function <- "AUC" # AUC or RMSE
+
+# Declare training fraction
+training_frac <- 0.8
 
 # Declare number of kfolds
 # kfolds <- args[7]
@@ -117,7 +120,7 @@ for (i in 1:length(data_imputed)){
   
   # Split the data
   set.seed(2022)
-  data_split <- initial_split(data_imputed[[i]], prop = 0.8, strata = predictor) 
+  data_split <- initial_split(data_imputed[[i]], prop = training_frac, strata = predictor) 
   train_data[[i]] <- training(data_split) %>% as.data.frame()
   test_data[[i]] <- testing(data_split) %>% as.data.frame()
   

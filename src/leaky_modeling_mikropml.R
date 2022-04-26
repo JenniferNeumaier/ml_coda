@@ -21,16 +21,16 @@ if (length(args) == 0) {
 
 
 # Declare file path of data
-file_path <- "../data/CRC/CRC_abundances_10.txt"
+file_path <- "../data/processed/filtered/PCOS_abundances_10.txt"
 
 # Declare file path for metadata
-metadata_file <- "../data/CRC/CRC_metadata.txt"
+metadata_file <- "../data/PCOS/PCOS_metadata.txt"
 
 # Declare Predictor
-predictor <- "Group" 
+predictor <- "PCOS_Riikka" 
 
 # Transformation
-pre_processing <- "ALR_optimal"
+pre_processing <- "CLR"
 
 # Number of repeats per data set
 n_repeats <- 10
@@ -53,6 +53,9 @@ training_frac <- 0.8
 # Declare seed 
 seed <- 2022
 
+# Method for Imputation
+method <- "p-counts"
+
 # Declare country as holdout set
 # country <- "FRA" # GER, FRA, CHI, USA, AUS
 
@@ -69,6 +72,7 @@ library("stringr")
 library("dplyr")
 library("tidymodels")
 library("mikropml")
+library("zCompositions")
 
 # Load src documents
 source("./convenience.R")
@@ -81,10 +85,25 @@ metadata <- read.table(metadata_file, header = TRUE)
 
 print("Imported data!")
 
+
 # Data transformation ----
 #------------------------------------------------#
 #                                                #
-#              DATA TRANSFORMATION              # 
+#              DATA IMPUTATION                   # 
+#                                                #
+#------------------------------------------------#
+
+data_set <- cbind(data_set[1], cmultRepl(data_set[,2:ncol(data_set)], output = method))
+
+data_set <- data_set %>% 
+  mutate_if(is.numeric, round, digits=3)
+
+print("Imputed data!")
+
+# Data transformation ----
+#------------------------------------------------#
+#                                                #
+#              DATA TRANSFORMATION               # 
 #                                                #
 #------------------------------------------------#
 

@@ -22,7 +22,7 @@ if (length(args) == 0) {
 
 
 # Declare file path of data
-file_path <- "../data/CRC/CRC_abundances_10.txt"
+file_path <- "../data/processed/filtered/CRC_abundances_10.txt"
 
 # Declare file path for metadata
 metadata_file <- "../data/CRC/CRC_metadata.txt"
@@ -31,7 +31,7 @@ metadata_file <- "../data/CRC/CRC_metadata.txt"
 predictor <- "Group" 
 
 # Transformation
-pre_processing <- "ALR_optimal"
+pre_processing <- "CLR"
 
 # Number of repeats per data set
 n_repeats <- 10
@@ -49,10 +49,13 @@ kfold <- 5
 cv_times <- 10
 
 # Declare amount of training fraction
-training_frac <- 0.8
+training_frac <- as.numeric(0.8)
 
 # Declare seed 
 seed <- 2022
+
+# Method for Imputation
+method <- "p-counts"
 
 
 # Program setup phase ----
@@ -67,6 +70,7 @@ library("stringr")
 library("dplyr")
 library("tidymodels")
 library("mikropml")
+library("zCompositions")
 
 # Load src documents
 source("./convenience.R")
@@ -126,11 +130,32 @@ test_data <- testing(data_split) %>% as.data.frame()
 # save integers that control training set
 idx <- data_split$in_id
 
+# Data imputation ----
+#------------------------------------------------#
+#                                                #
+#              DATA IMPUTATION                   # 
+#                                                #
+#------------------------------------------------#
+
+
+train_data <- cbind(train_data[1], cmultRepl(train_data[,2:ncol(train_data)], output = method))
+
+train_data <- train_data %>% 
+  mutate_if(is.numeric, round, digits=3)
+
+
+test_data <- cbind(test_data[1], cmultRepl(test_data[,2:ncol(test_data)], output = method))
+
+test_data <- test_data %>% 
+  mutate_if(is.numeric, round, digits=3)
+
+
+print("Imputed data!")
 
 # Data transformation ----
 #------------------------------------------------#
 #                                                #
-#              DATA TRANSFORMATION              # 
+#              DATA TRANSFORMATION               # 
 #                                                #
 #------------------------------------------------#
 

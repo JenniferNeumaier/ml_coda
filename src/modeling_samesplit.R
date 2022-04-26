@@ -25,29 +25,29 @@ if (length(args) == 0) {
 
 
 # Declare file path of data
-file_path <- "../data/CRC/"
+file_path <- args[1]
 
 # Declare file path for metadata
-metadata_file <- "../data/CRC/CRC_metadata.txt"
+metadata_file <- args[2]
 
 # Declare Predictor
-predictor <- "Group" 
+predictor <- args[3]
 
 # Number of repeats per data set
-n_repeats <- 10
+n_repeats <- args[4]
 
 if (n_repeats == 0) {
   stop("Counter has to be set to at least 1!", call. = FALSE)
 }
 
 # Declare model type
-model_name <- "xgbTree" #glmnet or xgbTree (xgboost)
+model_name <- args[5] #glmnet or xgbTree (xgboost)
 
 # Declare type of loss function
-loss_function <- "AUC" # AUC or RMSE
+loss_function <- args[6] # AUC or RMSE
 
 # Declare training fraction
-training_frac <- 0.8
+training_frac <- as.numeric(args[7])
 
 # Declare number of kfolds
 # kfolds <- args[7]
@@ -126,6 +126,10 @@ for (i in 1:length(data_imputed)){
   
 }
 
+# name train and test data
+names(train_data) <- names(data_imputed)
+names(test_data) <- names(data_imputed)
+
 
 # save integers that control training set
 idx <- data_split$in_id
@@ -175,12 +179,17 @@ for (i in 1:length(data_transformed)) {
       test_res[j] <- ml_result$performance[2]
       
     }
+ 
+    paste("Round", j, sep = " ", collapse = NULL)
     
   }
   
   # save lists in final list
   mikrop_training[[i]] <- training_res
   mikrop_test[[i]] <- test_res
+  
+  
+  paste("Finished", data_transformed[[i]], sep = " ", collapse = NULL)
 }
 
 
@@ -304,6 +313,8 @@ for (i in 1:length(train_data)) {
   # save lists in final list
   coda_training[[i]] <- training_res
   coda_test[[i]] <- test_res
+  
+  paste("Finished", train_data[[i]], sep = " ", collapse = NULL)
   
   }
 }

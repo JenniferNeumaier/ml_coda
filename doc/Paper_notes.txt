@@ -1,0 +1,68 @@
+2022 - Aitchison's Reappraisal
+- aitchisons original work used data set with small number of components
+- present day use for CoDA aimed at much higher dimensional data sets
+- amalgations were also defined by aitchison but hasnt been of higher interest for this project 
+	as it requires choice which features to combine (not much data-driven) 
+	-> relationship between amalgated components and different subset amalgamations 
+	-> could be of valid interest for nmicrobiome approaches by e.g. combining microbiota with the same function
+	-> possible to perform clusterubg by amalgamation (summing to minimize the loss of explained logratio variance)
+- for codacore: ILRs based on unweighted geometric means have also been termed "balances"
+- strict subcompositional coherence may not be necessary
+	-> meaning using only few features leads to the same results as using all features
+	-> here they used random 50% subcompositions with original compositions square-rooted
+	-> showed low variability -> would make the discussion about zero replacements obsolete
+- effect of subcompositional coherence and isometry diluted in high-dimensional data sets
+- authors not sure if these points are a problem in high-dimensional data
+- propose that it could be sufficient to applz chi-square standardization to the raw componentsor log-transforming when few zeros are around
+- dimensionality reduction by reducing the number of variables actively that decrease prediction rate
+	-> e.g. choosing LRs in a stepwise fashion -> see CoDaCoRe results
+	-> comparison to simply filter by abundance
+- include comparison of filtered data
+
+2015 - zCompositions
+- build with compositional data in mind
+- why did I use cmultRepl()?
+- Imputation clearly has an effect in ML models and transformations
+- experts are still critical about zero replacements
+- impact of different imputation methods on ALR and CLR transformed data?
+
+2021 - Microbiome Preprocessing Machine Learning Pipeline
+- proposed for Machine Learning preprocessing:
+	1. Yse Genus level representation
+	2. Perform a log-transform of the saamples
+	3. Merge all features belonging to the same genus through a PCA on these specific features
+- their log-transform was a log-scaling -> supports claims that log-scaling/normalization is sufficient
+
+2022 - Interpretable Log Contrasts
+- show that choice in log ratio transformation does not impact performance (contrary to my results)
+- support finding that CLR and balances outperform raw proportions in classification tasks
+- however: they compared CLR, PBA, ABA, RBA, DBA, ACOMP, and selbal
+- CLR couldn't keep up compared to balances
+- each validation set AUC describes a unique random training and validation set split
+- 50 training sets randomlz sampled from the data (with 33% as validation set)
+- Ask Oliver about this passage:
+"Although the CLR data have one feature per component, the
+regularized weights do not describe the importance of that component. Rather, the
+CLR-based model weights describe the importance of that component relative to
+the sample mean. On the other hand, balances measure the log contrast between sets
+of components. Thus, the balance-based model weights describe the importance of
+those components directly."
+	-> for me indicates that they calculated CLR column-wise??
+
+2019 - machine learning algorithms and compositional data
+- pwlr outperforms every other transformation
+- although PWLR has not been tested by me, ALR is similar in construction, but uses one specific reference
+- supports outperforming of balances 
+- however: -> CoDaCoRe is not more accurate than e.g. ALR?
+- disclaimer: they use RF and OOB-error
+- my opinion: ALRs easier to interpret than PWLRs and computationally taxing are both
+
+
+
+
+
+
+
+
+
+

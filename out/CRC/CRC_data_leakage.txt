@@ -1,301 +1,421 @@
-loss	type	transformation	set
-0.843745358	training	ALRo	split-imputation_split-transformation
-0.84073636	training	ALRo	split-imputation_split-transformation
-0.842409208	training	ALRo	split-imputation_split-transformation
-0.843564792	training	ALRo	split-imputation_split-transformation
-0.842782146	training	ALRo	split-imputation_split-transformation
-0.844447215	training	ALRo	split-imputation_split-transformation
-0.842592082	training	ALRo	split-imputation_split-transformation
-0.843767158	training	ALRo	split-imputation_split-transformation
-0.84228331	training	ALRo	split-imputation_split-transformation
-0.84235682	training	ALRo	split-imputation_split-transformation
-0.813591616	test	ALRo	split-imputation_split-transformation
-0.813591616	test	ALRo	split-imputation_split-transformation
-0.813591616	test	ALRo	split-imputation_split-transformation
-0.813591616	test	ALRo	split-imputation_split-transformation
-0.813591616	test	ALRo	split-imputation_split-transformation
-0.813591616	test	ALRo	split-imputation_split-transformation
-0.813591616	test	ALRo	split-imputation_split-transformation
-0.813591616	test	ALRo	split-imputation_split-transformation
-0.813591616	test	ALRo	split-imputation_split-transformation
-0.813909178	test	ALRo	split-imputation_split-transformation
-0.848728394	training	CLR	split-imputation_split-transformation
-0.848794209	training	CLR	split-imputation_split-transformation
-0.848616587	training	CLR	split-imputation_split-transformation
-0.84789379	training	CLR	split-imputation_split-transformation
-0.849876092	training	CLR	split-imputation_split-transformation
-0.85075104	training	CLR	split-imputation_split-transformation
-0.848067156	training	CLR	split-imputation_split-transformation
-0.849728889	training	CLR	split-imputation_split-transformation
-0.847622002	training	CLR	split-imputation_split-transformation
-0.847253502	training	CLR	split-imputation_split-transformation
-0.81168625	test	CLR	split-imputation_split-transformation
-0.81168625	test	CLR	split-imputation_split-transformation
-0.81168625	test	CLR	split-imputation_split-transformation
-0.81168625	test	CLR	split-imputation_split-transformation
-0.81168625	test	CLR	split-imputation_split-transformation
-0.81168625	test	CLR	split-imputation_split-transformation
-0.81168625	test	CLR	split-imputation_split-transformation
-0.81168625	test	CLR	split-imputation_split-transformation
-0.81168625	test	CLR	split-imputation_split-transformation
-0.81168625	test	CLR	split-imputation_split-transformation
-0.763807604	training	TSS	split-imputation_split-transformation
-0.769681818	training	TSS	split-imputation_split-transformation
-0.768957769	training	TSS	split-imputation_split-transformation
-0.764801582	training	TSS	split-imputation_split-transformation
-0.767007013	training	TSS	split-imputation_split-transformation
-0.766771924	training	TSS	split-imputation_split-transformation
-0.766192685	training	TSS	split-imputation_split-transformation
-0.765653113	training	TSS	split-imputation_split-transformation
-0.763606117	training	TSS	split-imputation_split-transformation
-0.762100683	training	TSS	split-imputation_split-transformation
-0.791679898	test	TSS	split-imputation_split-transformation
-0.791679898	test	TSS	split-imputation_split-transformation
-0.79199746	test	TSS	split-imputation_split-transformation
-0.79199746	test	TSS	split-imputation_split-transformation
-0.79199746	test	TSS	split-imputation_split-transformation
-0.791679898	test	TSS	split-imputation_split-transformation
-0.791679898	test	TSS	split-imputation_split-transformation
-0.791679898	test	TSS	split-imputation_split-transformation
-0.791679898	test	TSS	split-imputation_split-transformation
-0.79199746	test	TSS	split-imputation_split-transformation
-0.799706903	training	ALRw	split-imputation_split-transformation
-0.800760145	training	ALRw	split-imputation_split-transformation
-0.802616979	training	ALRw	split-imputation_split-transformation
-0.800756683	training	ALRw	split-imputation_split-transformation
-0.80375089	training	ALRw	split-imputation_split-transformation
-0.80388894	training	ALRw	split-imputation_split-transformation
-0.800247059	training	ALRw	split-imputation_split-transformation
-0.802567058	training	ALRw	split-imputation_split-transformation
-0.798246288	training	ALRw	split-imputation_split-transformation
-0.800714705	training	ALRw	split-imputation_split-transformation
-0.737059384	test	ALRw	split-imputation_split-transformation
-0.737694506	test	ALRw	split-imputation_split-transformation
-0.736741823	test	ALRw	split-imputation_split-transformation
-0.737376945	test	ALRw	split-imputation_split-transformation
-0.737059384	test	ALRw	split-imputation_split-transformation
-0.737694506	test	ALRw	split-imputation_split-transformation
-0.736424262	test	ALRw	split-imputation_split-transformation
-0.737694506	test	ALRw	split-imputation_split-transformation
-0.736741823	test	ALRw	split-imputation_split-transformation
-0.736106701	test	ALRw	split-imputation_split-transformation
-0.832005008	training	ALRr	split-imputation_split-transformation
-0.831446005	training	ALRr	split-imputation_split-transformation
-0.83080831	training	ALRr	split-imputation_split-transformation
-0.833147236	training	ALRr	split-imputation_split-transformation
-0.83254381	training	ALRr	split-imputation_split-transformation
-0.831960255	training	ALRr	split-imputation_split-transformation
-0.832001831	training	ALRr	split-imputation_split-transformation
-0.834650174	training	ALRr	split-imputation_split-transformation
-0.829223395	training	ALRr	split-imputation_split-transformation
-0.829495781	training	ALRr	split-imputation_split-transformation
-0.82311845	test	ALRr	split-imputation_split-transformation
-0.823436011	test	ALRr	split-imputation_split-transformation
-0.82311845	test	ALRr	split-imputation_split-transformation
-0.823436011	test	ALRr	split-imputation_split-transformation
-0.82311845	test	ALRr	split-imputation_split-transformation
-0.82311845	test	ALRr	split-imputation_split-transformation
-0.82311845	test	ALRr	split-imputation_split-transformation
-0.823436011	test	ALRr	split-imputation_split-transformation
-0.823436011	test	ALRr	split-imputation_split-transformation
-0.82311845	test	ALRr	split-imputation_split-transformation
-0.846312818	training	ALRo	imputation_split-transformation
-0.843380105	training	ALRo	imputation_split-transformation
-0.845424401	training	ALRo	imputation_split-transformation
-0.846406844	training	ALRo	imputation_split-transformation
-0.8468108	training	ALRo	imputation_split-transformation
-0.846958484	training	ALRo	imputation_split-transformation
-0.845867383	training	ALRo	imputation_split-transformation
-0.848022038	training	ALRo	imputation_split-transformation
-0.843309118	training	ALRo	imputation_split-transformation
-0.843813169	training	ALRo	imputation_split-transformation
-0.81168625	test	ALRo	imputation_split-transformation
-0.812003811	test	ALRo	imputation_split-transformation
-0.812003811	test	ALRo	imputation_split-transformation
-0.812003811	test	ALRo	imputation_split-transformation
-0.811368688	test	ALRo	imputation_split-transformation
-0.811368688	test	ALRo	imputation_split-transformation
-0.81168625	test	ALRo	imputation_split-transformation
-0.812003811	test	ALRo	imputation_split-transformation
-0.812003811	test	ALRo	imputation_split-transformation
-0.81168625	test	ALRo	imputation_split-transformation
-0.763807558	training	TSS	imputation_split-transformation
-0.769923588	training	TSS	imputation_split-transformation
-0.769121805	training	TSS	imputation_split-transformation
-0.772382988	training	TSS	imputation_split-transformation
-0.76257423	training	TSS	imputation_split-transformation
-0.767072567	training	TSS	imputation_split-transformation
-0.773134598	training	TSS	imputation_split-transformation
-0.76645483	training	TSS	imputation_split-transformation
-0.763535022	training	TSS	imputation_split-transformation
-0.767582196	training	TSS	imputation_split-transformation
-0.791362337	test	TSS	imputation_split-transformation
-0.791362337	test	TSS	imputation_split-transformation
-0.791044776	test	TSS	imputation_split-transformation
-0.791362337	test	TSS	imputation_split-transformation
-0.791044776	test	TSS	imputation_split-transformation
-0.791362337	test	TSS	imputation_split-transformation
-0.791044776	test	TSS	imputation_split-transformation
-0.791362337	test	TSS	imputation_split-transformation
-0.791362337	test	TSS	imputation_split-transformation
-0.791362337	test	TSS	imputation_split-transformation
-0.851035825	training	CLR	imputation_split-transformation
-0.852109952	training	CLR	imputation_split-transformation
-0.854594679	training	CLR	imputation_split-transformation
-0.852228221	training	CLR	imputation_split-transformation
-0.853775087	training	CLR	imputation_split-transformation
-0.852500738	training	CLR	imputation_split-transformation
-0.85286986	training	CLR	imputation_split-transformation
-0.852397289	training	CLR	imputation_split-transformation
-0.849164503	training	CLR	imputation_split-transformation
-0.85132783	training	CLR	imputation_split-transformation
-0.812956494	test	CLR	imputation_split-transformation
-0.813274055	test	CLR	imputation_split-transformation
-0.813274055	test	CLR	imputation_split-transformation
-0.813274055	test	CLR	imputation_split-transformation
-0.813274055	test	CLR	imputation_split-transformation
-0.812956494	test	CLR	imputation_split-transformation
-0.813274055	test	CLR	imputation_split-transformation
-0.813274055	test	CLR	imputation_split-transformation
-0.812956494	test	CLR	imputation_split-transformation
-0.813274055	test	CLR	imputation_split-transformation
-0.83439016	training	ALRr	imputation_split-transformation
-0.83359652	training	ALRr	imputation_split-transformation
-0.832633845	training	ALRr	imputation_split-transformation
-0.835047038	training	ALRr	imputation_split-transformation
-0.834555032	training	ALRr	imputation_split-transformation
-0.833690765	training	ALRr	imputation_split-transformation
-0.8339844	training	ALRr	imputation_split-transformation
-0.837098814	training	ALRr	imputation_split-transformation
-0.830943482	training	ALRr	imputation_split-transformation
-0.831973122	training	ALRr	imputation_split-transformation
-0.823753573	test	ALRr	imputation_split-transformation
-0.823436011	test	ALRr	imputation_split-transformation
-0.823753573	test	ALRr	imputation_split-transformation
-0.824706256	test	ALRr	imputation_split-transformation
-0.823753573	test	ALRr	imputation_split-transformation
-0.823436011	test	ALRr	imputation_split-transformation
-0.823753573	test	ALRr	imputation_split-transformation
-0.823436011	test	ALRr	imputation_split-transformation
-0.824071134	test	ALRr	imputation_split-transformation
-0.823436011	test	ALRr	imputation_split-transformation
-0.759940272	training	ALRw	imputation_split-transformation
-0.764130299	training	ALRw	imputation_split-transformation
-0.765000294	training	ALRw	imputation_split-transformation
-0.761853507	training	ALRw	imputation_split-transformation
-0.760796116	training	ALRw	imputation_split-transformation
-0.76333765	training	ALRw	imputation_split-transformation
-0.764669507	training	ALRw	imputation_split-transformation
-0.762272536	training	ALRw	imputation_split-transformation
-0.757532718	training	ALRw	imputation_split-transformation
-0.760936469	training	ALRw	imputation_split-transformation
-0.776436964	test	ALRw	imputation_split-transformation
-0.766275008	test	ALRw	imputation_split-transformation
-0.776436964	test	ALRw	imputation_split-transformation
-0.766592569	test	ALRw	imputation_split-transformation
-0.776436964	test	ALRw	imputation_split-transformation
-0.777072086	test	ALRw	imputation_split-transformation
-0.776436964	test	ALRw	imputation_split-transformation
-0.776436964	test	ALRw	imputation_split-transformation
-0.776436964	test	ALRw	imputation_split-transformation
-0.776754525	test	ALRw	imputation_split-transformation
-0.828559289	training	ALRo	imputation_transformation
-0.82650022	training	ALRo	imputation_transformation
-0.831173474	training	ALRo	imputation_transformation
-0.828758674	training	ALRo	imputation_transformation
-0.83306895	training	ALRo	imputation_transformation
-0.829974528	training	ALRo	imputation_transformation
-0.831421388	training	ALRo	imputation_transformation
-0.831509881	training	ALRo	imputation_transformation
-0.831209047	training	ALRo	imputation_transformation
-0.829846728	training	ALRo	imputation_transformation
-0.893165025	test	ALRo	imputation_transformation
-0.893165025	test	ALRo	imputation_transformation
-0.893165025	test	ALRo	imputation_transformation
-0.893165025	test	ALRo	imputation_transformation
-0.893165025	test	ALRo	imputation_transformation
-0.893165025	test	ALRo	imputation_transformation
-0.893165025	test	ALRo	imputation_transformation
-0.893165025	test	ALRo	imputation_transformation
-0.893165025	test	ALRo	imputation_transformation
-0.893165025	test	ALRo	imputation_transformation
-0.829519543	training	CLR	imputation_transformation
-0.828344532	training	CLR	imputation_transformation
-0.830646465	training	CLR	imputation_transformation
-0.829634387	training	CLR	imputation_transformation
-0.830643171	training	CLR	imputation_transformation
-0.831057093	training	CLR	imputation_transformation
-0.832703118	training	CLR	imputation_transformation
-0.834429073	training	CLR	imputation_transformation
-0.829655029	training	CLR	imputation_transformation
-0.82593632	training	CLR	imputation_transformation
-0.898706897	test	CLR	imputation_transformation
-0.898706897	test	CLR	imputation_transformation
-0.898706897	test	CLR	imputation_transformation
-0.898706897	test	CLR	imputation_transformation
-0.898706897	test	CLR	imputation_transformation
-0.898706897	test	CLR	imputation_transformation
-0.898706897	test	CLR	imputation_transformation
-0.898706897	test	CLR	imputation_transformation
-0.898706897	test	CLR	imputation_transformation
-0.898706897	test	CLR	imputation_transformation
-0.753923144	training	TSS	imputation_transformation
-0.756063022	training	TSS	imputation_transformation
-0.757487923	training	TSS	imputation_transformation
-0.757544576	training	TSS	imputation_transformation
-0.758640975	training	TSS	imputation_transformation
-0.756174352	training	TSS	imputation_transformation
-0.759624067	training	TSS	imputation_transformation
-0.762108037	training	TSS	imputation_transformation
-0.756844752	training	TSS	imputation_transformation
-0.754378568	training	TSS	imputation_transformation
-0.798953202	test	TSS	imputation_transformation
-0.798953202	test	TSS	imputation_transformation
-0.799261084	test	TSS	imputation_transformation
-0.799261084	test	TSS	imputation_transformation
-0.79864532	test	TSS	imputation_transformation
-0.798337438	test	TSS	imputation_transformation
-0.799261084	test	TSS	imputation_transformation
-0.79864532	test	TSS	imputation_transformation
-0.798337438	test	TSS	imputation_transformation
-0.79864532	test	TSS	imputation_transformation
-0.826801274	training	ALRr	imputation_transformation
-0.829413263	training	ALRr	imputation_transformation
-0.826613746	training	ALRr	imputation_transformation
-0.829057751	training	ALRr	imputation_transformation
-0.826996487	training	ALRr	imputation_transformation
-0.824692139	training	ALRr	imputation_transformation
-0.828400747	training	ALRr	imputation_transformation
-0.827936978	training	ALRr	imputation_transformation
-0.829117699	training	ALRr	imputation_transformation
-0.829735837	training	ALRr	imputation_transformation
-0.786201581	training	ALRw	imputation_transformation
-0.785928195	training	ALRw	imputation_transformation
-0.785880325	training	ALRw	imputation_transformation
-0.785842556	training	ALRw	imputation_transformation
-0.784822134	training	ALRw	imputation_transformation
-0.787796443	training	ALRw	imputation_transformation
-0.789342995	training	ALRw	imputation_transformation
-0.782131752	training	ALRw	imputation_transformation
-0.786459157	training	ALRw	imputation_transformation
-0.786640975	training	ALRw	imputation_transformation
-0.887623153	test	ALRr	imputation_transformation
-0.887931034	test	ALRr	imputation_transformation
-0.887931034	test	ALRr	imputation_transformation
-0.887931034	test	ALRr	imputation_transformation
-0.887931034	test	ALRr	imputation_transformation
-0.887931034	test	ALRr	imputation_transformation
-0.887623153	test	ALRr	imputation_transformation
-0.887623153	test	ALRr	imputation_transformation
-0.887931034	test	ALRr	imputation_transformation
-0.887931034	test	ALRr	imputation_transformation
-0.836514778	test	ALRw	imputation_transformation
-0.836514778	test	ALRw	imputation_transformation
-0.836514778	test	ALRw	imputation_transformation
-0.836514778	test	ALRw	imputation_transformation
-0.836514778	test	ALRw	imputation_transformation
-0.836514778	test	ALRw	imputation_transformation
-0.836514778	test	ALRw	imputation_transformation
-0.83682266	test	ALRw	imputation_transformation
-0.836514778	test	ALRw	imputation_transformation
-0.836514778	test	ALRw	imputation_transformation
+loss	type	model	procedure	set
+0.843745358	training	ALRo	split-imputation_split-transformation	non_leaky
+0.84073636	training	ALRo	split-imputation_split-transformation	non_leaky
+0.842409208	training	ALRo	split-imputation_split-transformation	non_leaky
+0.843564792	training	ALRo	split-imputation_split-transformation	non_leaky
+0.842782146	training	ALRo	split-imputation_split-transformation	non_leaky
+0.844447215	training	ALRo	split-imputation_split-transformation	non_leaky
+0.842592082	training	ALRo	split-imputation_split-transformation	non_leaky
+0.843767158	training	ALRo	split-imputation_split-transformation	non_leaky
+0.84228331	training	ALRo	split-imputation_split-transformation	non_leaky
+0.84235682	training	ALRo	split-imputation_split-transformation	non_leaky
+0.813591616	test	ALRo	split-imputation_split-transformation	non_leaky
+0.813591616	test	ALRo	split-imputation_split-transformation	non_leaky
+0.813591616	test	ALRo	split-imputation_split-transformation	non_leaky
+0.813591616	test	ALRo	split-imputation_split-transformation	non_leaky
+0.813591616	test	ALRo	split-imputation_split-transformation	non_leaky
+0.813591616	test	ALRo	split-imputation_split-transformation	non_leaky
+0.813591616	test	ALRo	split-imputation_split-transformation	non_leaky
+0.813591616	test	ALRo	split-imputation_split-transformation	non_leaky
+0.813591616	test	ALRo	split-imputation_split-transformation	non_leaky
+0.813909178	test	ALRo	split-imputation_split-transformation	non_leaky
+0.848728394	training	CLR	split-imputation_split-transformation	non_leaky
+0.848794209	training	CLR	split-imputation_split-transformation	non_leaky
+0.848616587	training	CLR	split-imputation_split-transformation	non_leaky
+0.84789379	training	CLR	split-imputation_split-transformation	non_leaky
+0.849876092	training	CLR	split-imputation_split-transformation	non_leaky
+0.85075104	training	CLR	split-imputation_split-transformation	non_leaky
+0.848067156	training	CLR	split-imputation_split-transformation	non_leaky
+0.849728889	training	CLR	split-imputation_split-transformation	non_leaky
+0.847622002	training	CLR	split-imputation_split-transformation	non_leaky
+0.847253502	training	CLR	split-imputation_split-transformation	non_leaky
+0.81168625	test	CLR	split-imputation_split-transformation	non_leaky
+0.81168625	test	CLR	split-imputation_split-transformation	non_leaky
+0.81168625	test	CLR	split-imputation_split-transformation	non_leaky
+0.81168625	test	CLR	split-imputation_split-transformation	non_leaky
+0.81168625	test	CLR	split-imputation_split-transformation	non_leaky
+0.81168625	test	CLR	split-imputation_split-transformation	non_leaky
+0.81168625	test	CLR	split-imputation_split-transformation	non_leaky
+0.81168625	test	CLR	split-imputation_split-transformation	non_leaky
+0.81168625	test	CLR	split-imputation_split-transformation	non_leaky
+0.81168625	test	CLR	split-imputation_split-transformation	non_leaky
+0.763807604	training	TSS	split-imputation_split-transformation	non_leaky
+0.769681818	training	TSS	split-imputation_split-transformation	non_leaky
+0.768957769	training	TSS	split-imputation_split-transformation	non_leaky
+0.764801582	training	TSS	split-imputation_split-transformation	non_leaky
+0.767007013	training	TSS	split-imputation_split-transformation	non_leaky
+0.766771924	training	TSS	split-imputation_split-transformation	non_leaky
+0.766192685	training	TSS	split-imputation_split-transformation	non_leaky
+0.765653113	training	TSS	split-imputation_split-transformation	non_leaky
+0.763606117	training	TSS	split-imputation_split-transformation	non_leaky
+0.762100683	training	TSS	split-imputation_split-transformation	non_leaky
+0.791679898	test	TSS	split-imputation_split-transformation	non_leaky
+0.791679898	test	TSS	split-imputation_split-transformation	non_leaky
+0.79199746	test	TSS	split-imputation_split-transformation	non_leaky
+0.79199746	test	TSS	split-imputation_split-transformation	non_leaky
+0.79199746	test	TSS	split-imputation_split-transformation	non_leaky
+0.791679898	test	TSS	split-imputation_split-transformation	non_leaky
+0.791679898	test	TSS	split-imputation_split-transformation	non_leaky
+0.791679898	test	TSS	split-imputation_split-transformation	non_leaky
+0.791679898	test	TSS	split-imputation_split-transformation	non_leaky
+0.79199746	test	TSS	split-imputation_split-transformation	non_leaky
+0.799706903	training	ALRw	split-imputation_split-transformation	non_leaky
+0.800760145	training	ALRw	split-imputation_split-transformation	non_leaky
+0.802616979	training	ALRw	split-imputation_split-transformation	non_leaky
+0.800756683	training	ALRw	split-imputation_split-transformation	non_leaky
+0.80375089	training	ALRw	split-imputation_split-transformation	non_leaky
+0.80388894	training	ALRw	split-imputation_split-transformation	non_leaky
+0.800247059	training	ALRw	split-imputation_split-transformation	non_leaky
+0.802567058	training	ALRw	split-imputation_split-transformation	non_leaky
+0.798246288	training	ALRw	split-imputation_split-transformation	non_leaky
+0.800714705	training	ALRw	split-imputation_split-transformation	non_leaky
+0.737059384	test	ALRw	split-imputation_split-transformation	non_leaky
+0.737694506	test	ALRw	split-imputation_split-transformation	non_leaky
+0.736741823	test	ALRw	split-imputation_split-transformation	non_leaky
+0.737376945	test	ALRw	split-imputation_split-transformation	non_leaky
+0.737059384	test	ALRw	split-imputation_split-transformation	non_leaky
+0.737694506	test	ALRw	split-imputation_split-transformation	non_leaky
+0.736424262	test	ALRw	split-imputation_split-transformation	non_leaky
+0.737694506	test	ALRw	split-imputation_split-transformation	non_leaky
+0.736741823	test	ALRw	split-imputation_split-transformation	non_leaky
+0.736106701	test	ALRw	split-imputation_split-transformation	non_leaky
+0.832005008	training	ALRr	split-imputation_split-transformation	non_leaky
+0.831446005	training	ALRr	split-imputation_split-transformation	non_leaky
+0.83080831	training	ALRr	split-imputation_split-transformation	non_leaky
+0.833147236	training	ALRr	split-imputation_split-transformation	non_leaky
+0.83254381	training	ALRr	split-imputation_split-transformation	non_leaky
+0.831960255	training	ALRr	split-imputation_split-transformation	non_leaky
+0.832001831	training	ALRr	split-imputation_split-transformation	non_leaky
+0.834650174	training	ALRr	split-imputation_split-transformation	non_leaky
+0.829223395	training	ALRr	split-imputation_split-transformation	non_leaky
+0.829495781	training	ALRr	split-imputation_split-transformation	non_leaky
+0.82311845	test	ALRr	split-imputation_split-transformation	non_leaky
+0.823436011	test	ALRr	split-imputation_split-transformation	non_leaky
+0.82311845	test	ALRr	split-imputation_split-transformation	non_leaky
+0.823436011	test	ALRr	split-imputation_split-transformation	non_leaky
+0.82311845	test	ALRr	split-imputation_split-transformation	non_leaky
+0.82311845	test	ALRr	split-imputation_split-transformation	non_leaky
+0.82311845	test	ALRr	split-imputation_split-transformation	non_leaky
+0.823436011	test	ALRr	split-imputation_split-transformation	non_leaky
+0.823436011	test	ALRr	split-imputation_split-transformation	non_leaky
+0.82311845	test	ALRr	split-imputation_split-transformation	non_leaky
+0.846312818	training	ALRo	imputation_split-transformation	non_leaky_special
+0.843380105	training	ALRo	imputation_split-transformation	non_leaky_special
+0.845424401	training	ALRo	imputation_split-transformation	non_leaky_special
+0.846406844	training	ALRo	imputation_split-transformation	non_leaky_special
+0.8468108	training	ALRo	imputation_split-transformation	non_leaky_special
+0.846958484	training	ALRo	imputation_split-transformation	non_leaky_special
+0.845867383	training	ALRo	imputation_split-transformation	non_leaky_special
+0.848022038	training	ALRo	imputation_split-transformation	non_leaky_special
+0.843309118	training	ALRo	imputation_split-transformation	non_leaky_special
+0.843813169	training	ALRo	imputation_split-transformation	non_leaky_special
+0.81168625	test	ALRo	imputation_split-transformation	non_leaky_special
+0.812003811	test	ALRo	imputation_split-transformation	non_leaky_special
+0.812003811	test	ALRo	imputation_split-transformation	non_leaky_special
+0.812003811	test	ALRo	imputation_split-transformation	non_leaky_special
+0.811368688	test	ALRo	imputation_split-transformation	non_leaky_special
+0.811368688	test	ALRo	imputation_split-transformation	non_leaky_special
+0.81168625	test	ALRo	imputation_split-transformation	non_leaky_special
+0.812003811	test	ALRo	imputation_split-transformation	non_leaky_special
+0.812003811	test	ALRo	imputation_split-transformation	non_leaky_special
+0.81168625	test	ALRo	imputation_split-transformation	non_leaky_special
+0.763807558	training	TSS	imputation_split-transformation	non_leaky_special
+0.769923588	training	TSS	imputation_split-transformation	non_leaky_special
+0.769121805	training	TSS	imputation_split-transformation	non_leaky_special
+0.772382988	training	TSS	imputation_split-transformation	non_leaky_special
+0.76257423	training	TSS	imputation_split-transformation	non_leaky_special
+0.767072567	training	TSS	imputation_split-transformation	non_leaky_special
+0.773134598	training	TSS	imputation_split-transformation	non_leaky_special
+0.76645483	training	TSS	imputation_split-transformation	non_leaky_special
+0.763535022	training	TSS	imputation_split-transformation	non_leaky_special
+0.767582196	training	TSS	imputation_split-transformation	non_leaky_special
+0.791362337	test	TSS	imputation_split-transformation	non_leaky_special
+0.791362337	test	TSS	imputation_split-transformation	non_leaky_special
+0.791044776	test	TSS	imputation_split-transformation	non_leaky_special
+0.791362337	test	TSS	imputation_split-transformation	non_leaky_special
+0.791044776	test	TSS	imputation_split-transformation	non_leaky_special
+0.791362337	test	TSS	imputation_split-transformation	non_leaky_special
+0.791044776	test	TSS	imputation_split-transformation	non_leaky_special
+0.791362337	test	TSS	imputation_split-transformation	non_leaky_special
+0.791362337	test	TSS	imputation_split-transformation	non_leaky_special
+0.791362337	test	TSS	imputation_split-transformation	non_leaky_special
+0.851035825	training	CLR	imputation_split-transformation	non_leaky_special
+0.852109952	training	CLR	imputation_split-transformation	non_leaky_special
+0.854594679	training	CLR	imputation_split-transformation	non_leaky_special
+0.852228221	training	CLR	imputation_split-transformation	non_leaky_special
+0.853775087	training	CLR	imputation_split-transformation	non_leaky_special
+0.852500738	training	CLR	imputation_split-transformation	non_leaky_special
+0.85286986	training	CLR	imputation_split-transformation	non_leaky_special
+0.852397289	training	CLR	imputation_split-transformation	non_leaky_special
+0.849164503	training	CLR	imputation_split-transformation	non_leaky_special
+0.85132783	training	CLR	imputation_split-transformation	non_leaky_special
+0.812956494	test	CLR	imputation_split-transformation	non_leaky_special
+0.813274055	test	CLR	imputation_split-transformation	non_leaky_special
+0.813274055	test	CLR	imputation_split-transformation	non_leaky_special
+0.813274055	test	CLR	imputation_split-transformation	non_leaky_special
+0.813274055	test	CLR	imputation_split-transformation	non_leaky_special
+0.812956494	test	CLR	imputation_split-transformation	non_leaky_special
+0.813274055	test	CLR	imputation_split-transformation	non_leaky_special
+0.813274055	test	CLR	imputation_split-transformation	non_leaky_special
+0.812956494	test	CLR	imputation_split-transformation	non_leaky_special
+0.813274055	test	CLR	imputation_split-transformation	non_leaky_special
+0.83439016	training	ALRr	imputation_split-transformation	non_leaky_special
+0.83359652	training	ALRr	imputation_split-transformation	non_leaky_special
+0.832633845	training	ALRr	imputation_split-transformation	non_leaky_special
+0.835047038	training	ALRr	imputation_split-transformation	non_leaky_special
+0.834555032	training	ALRr	imputation_split-transformation	non_leaky_special
+0.833690765	training	ALRr	imputation_split-transformation	non_leaky_special
+0.8339844	training	ALRr	imputation_split-transformation	non_leaky_special
+0.837098814	training	ALRr	imputation_split-transformation	non_leaky_special
+0.830943482	training	ALRr	imputation_split-transformation	non_leaky_special
+0.831973122	training	ALRr	imputation_split-transformation	non_leaky_special
+0.823753573	test	ALRr	imputation_split-transformation	non_leaky_special
+0.823436011	test	ALRr	imputation_split-transformation	non_leaky_special
+0.823753573	test	ALRr	imputation_split-transformation	non_leaky_special
+0.824706256	test	ALRr	imputation_split-transformation	non_leaky_special
+0.823753573	test	ALRr	imputation_split-transformation	non_leaky_special
+0.823436011	test	ALRr	imputation_split-transformation	non_leaky_special
+0.823753573	test	ALRr	imputation_split-transformation	non_leaky_special
+0.823436011	test	ALRr	imputation_split-transformation	non_leaky_special
+0.824071134	test	ALRr	imputation_split-transformation	non_leaky_special
+0.823436011	test	ALRr	imputation_split-transformation	non_leaky_special
+0.759940272	training	ALRw	imputation_split-transformation	non_leaky_special
+0.764130299	training	ALRw	imputation_split-transformation	non_leaky_special
+0.765000294	training	ALRw	imputation_split-transformation	non_leaky_special
+0.761853507	training	ALRw	imputation_split-transformation	non_leaky_special
+0.760796116	training	ALRw	imputation_split-transformation	non_leaky_special
+0.76333765	training	ALRw	imputation_split-transformation	non_leaky_special
+0.764669507	training	ALRw	imputation_split-transformation	non_leaky_special
+0.762272536	training	ALRw	imputation_split-transformation	non_leaky_special
+0.757532718	training	ALRw	imputation_split-transformation	non_leaky_special
+0.760936469	training	ALRw	imputation_split-transformation	non_leaky_special
+0.776436964	test	ALRw	imputation_split-transformation	non_leaky_special
+0.766275008	test	ALRw	imputation_split-transformation	non_leaky_special
+0.776436964	test	ALRw	imputation_split-transformation	non_leaky_special
+0.766592569	test	ALRw	imputation_split-transformation	non_leaky_special
+0.776436964	test	ALRw	imputation_split-transformation	non_leaky_special
+0.777072086	test	ALRw	imputation_split-transformation	non_leaky_special
+0.776436964	test	ALRw	imputation_split-transformation	non_leaky_special
+0.776436964	test	ALRw	imputation_split-transformation	non_leaky_special
+0.776436964	test	ALRw	imputation_split-transformation	non_leaky_special
+0.776754525	test	ALRw	imputation_split-transformation	non_leaky_special
+0.828559289	training	ALRo	imputation_transformation	leaky
+0.82650022	training	ALRo	imputation_transformation	leaky
+0.831173474	training	ALRo	imputation_transformation	leaky
+0.828758674	training	ALRo	imputation_transformation	leaky
+0.83306895	training	ALRo	imputation_transformation	leaky
+0.829974528	training	ALRo	imputation_transformation	leaky
+0.831421388	training	ALRo	imputation_transformation	leaky
+0.831509881	training	ALRo	imputation_transformation	leaky
+0.831209047	training	ALRo	imputation_transformation	leaky
+0.829846728	training	ALRo	imputation_transformation	leaky
+0.893165025	test	ALRo	imputation_transformation	leaky
+0.893165025	test	ALRo	imputation_transformation	leaky
+0.893165025	test	ALRo	imputation_transformation	leaky
+0.893165025	test	ALRo	imputation_transformation	leaky
+0.893165025	test	ALRo	imputation_transformation	leaky
+0.893165025	test	ALRo	imputation_transformation	leaky
+0.893165025	test	ALRo	imputation_transformation	leaky
+0.893165025	test	ALRo	imputation_transformation	leaky
+0.893165025	test	ALRo	imputation_transformation	leaky
+0.893165025	test	ALRo	imputation_transformation	leaky
+0.829519543	training	CLR	imputation_transformation	leaky
+0.828344532	training	CLR	imputation_transformation	leaky
+0.830646465	training	CLR	imputation_transformation	leaky
+0.829634387	training	CLR	imputation_transformation	leaky
+0.830643171	training	CLR	imputation_transformation	leaky
+0.831057093	training	CLR	imputation_transformation	leaky
+0.832703118	training	CLR	imputation_transformation	leaky
+0.834429073	training	CLR	imputation_transformation	leaky
+0.829655029	training	CLR	imputation_transformation	leaky
+0.82593632	training	CLR	imputation_transformation	leaky
+0.898706897	test	CLR	imputation_transformation	leaky
+0.898706897	test	CLR	imputation_transformation	leaky
+0.898706897	test	CLR	imputation_transformation	leaky
+0.898706897	test	CLR	imputation_transformation	leaky
+0.898706897	test	CLR	imputation_transformation	leaky
+0.898706897	test	CLR	imputation_transformation	leaky
+0.898706897	test	CLR	imputation_transformation	leaky
+0.898706897	test	CLR	imputation_transformation	leaky
+0.898706897	test	CLR	imputation_transformation	leaky
+0.898706897	test	CLR	imputation_transformation	leaky
+0.753923144	training	TSS	imputation_transformation	leaky
+0.756063022	training	TSS	imputation_transformation	leaky
+0.757487923	training	TSS	imputation_transformation	leaky
+0.757544576	training	TSS	imputation_transformation	leaky
+0.758640975	training	TSS	imputation_transformation	leaky
+0.756174352	training	TSS	imputation_transformation	leaky
+0.759624067	training	TSS	imputation_transformation	leaky
+0.762108037	training	TSS	imputation_transformation	leaky
+0.756844752	training	TSS	imputation_transformation	leaky
+0.754378568	training	TSS	imputation_transformation	leaky
+0.798953202	test	TSS	imputation_transformation	leaky
+0.798953202	test	TSS	imputation_transformation	leaky
+0.799261084	test	TSS	imputation_transformation	leaky
+0.799261084	test	TSS	imputation_transformation	leaky
+0.79864532	test	TSS	imputation_transformation	leaky
+0.798337438	test	TSS	imputation_transformation	leaky
+0.799261084	test	TSS	imputation_transformation	leaky
+0.79864532	test	TSS	imputation_transformation	leaky
+0.798337438	test	TSS	imputation_transformation	leaky
+0.79864532	test	TSS	imputation_transformation	leaky
+0.826801274	training	ALRr	imputation_transformation	leaky
+0.829413263	training	ALRr	imputation_transformation	leaky
+0.826613746	training	ALRr	imputation_transformation	leaky
+0.829057751	training	ALRr	imputation_transformation	leaky
+0.826996487	training	ALRr	imputation_transformation	leaky
+0.824692139	training	ALRr	imputation_transformation	leaky
+0.828400747	training	ALRr	imputation_transformation	leaky
+0.827936978	training	ALRr	imputation_transformation	leaky
+0.829117699	training	ALRr	imputation_transformation	leaky
+0.829735837	training	ALRr	imputation_transformation	leaky
+0.786201581	training	ALRw	imputation_transformation	leaky
+0.785928195	training	ALRw	imputation_transformation	leaky
+0.785880325	training	ALRw	imputation_transformation	leaky
+0.785842556	training	ALRw	imputation_transformation	leaky
+0.784822134	training	ALRw	imputation_transformation	leaky
+0.787796443	training	ALRw	imputation_transformation	leaky
+0.789342995	training	ALRw	imputation_transformation	leaky
+0.782131752	training	ALRw	imputation_transformation	leaky
+0.786459157	training	ALRw	imputation_transformation	leaky
+0.786640975	training	ALRw	imputation_transformation	leaky
+0.887623153	test	ALRr	imputation_transformation	leaky
+0.887931034	test	ALRr	imputation_transformation	leaky
+0.887931034	test	ALRr	imputation_transformation	leaky
+0.887931034	test	ALRr	imputation_transformation	leaky
+0.887931034	test	ALRr	imputation_transformation	leaky
+0.887931034	test	ALRr	imputation_transformation	leaky
+0.887623153	test	ALRr	imputation_transformation	leaky
+0.887623153	test	ALRr	imputation_transformation	leaky
+0.887931034	test	ALRr	imputation_transformation	leaky
+0.887931034	test	ALRr	imputation_transformation	leaky
+0.836514778	test	ALRw	imputation_transformation	leaky
+0.836514778	test	ALRw	imputation_transformation	leaky
+0.836514778	test	ALRw	imputation_transformation	leaky
+0.836514778	test	ALRw	imputation_transformation	leaky
+0.836514778	test	ALRw	imputation_transformation	leaky
+0.836514778	test	ALRw	imputation_transformation	leaky
+0.836514778	test	ALRw	imputation_transformation	leaky
+0.83682266	test	ALRw	imputation_transformation	leaky
+0.836514778	test	ALRw	imputation_transformation	leaky
+0.836514778	test	ALRw	imputation_transformation	leaky
+0.816124001	training	model_bal_0	imputation	leaky
+0.816124001	training	model_bal_0	imputation	leaky
+0.816124001	training	model_bal_0	imputation	leaky
+0.816124001	training	model_bal_0	imputation	leaky
+0.816124001	training	model_bal_0	imputation	leaky
+0.816124001	training	model_bal_0	imputation	leaky
+0.816124001	training	model_bal_0	imputation	leaky
+0.816124001	training	model_bal_0	imputation	leaky
+0.816124001	training	model_bal_0	imputation	leaky
+0.812575551	training	model_bal_0	imputation	leaky
+0.80877364	training	model_bal_1	imputation	leaky
+0.799122636	training	model_bal_1	imputation	leaky
+0.78264769	training	model_bal_1	imputation	leaky
+0.80877364	training	model_bal_1	imputation	leaky
+0.80877364	training	model_bal_1	imputation	leaky
+0.799122636	training	model_bal_1	imputation	leaky
+0.80877364	training	model_bal_1	imputation	leaky
+0.812770521	training	model_bal_1	imputation	leaky
+0.80877364	training	model_bal_1	imputation	leaky
+0.799122636	training	model_bal_1	imputation	leaky
+0.794027094	test	pred_bal_0_lr1	imputation	leaky
+0.794027094	test	pred_bal_0_lr1	imputation	leaky
+0.794027094	test	pred_bal_0_lr1	imputation	leaky
+0.794027094	test	pred_bal_0_lr1	imputation	leaky
+0.794027094	test	pred_bal_0_lr1	imputation	leaky
+0.794027094	test	pred_bal_0_lr1	imputation	leaky
+0.794027094	test	pred_bal_0_lr1	imputation	leaky
+0.794027094	test	pred_bal_0_lr1	imputation	leaky
+0.794027094	test	pred_bal_0_lr1	imputation	leaky
+0.798953202	test	pred_bal_0_lr1	imputation	leaky
+0.805110837	test	pred_bal_0	imputation	leaky
+0.792179803	test	pred_bal_0	imputation	leaky
+0.791256158	test	pred_bal_0	imputation	leaky
+0.791256158	test	pred_bal_0	imputation	leaky
+0.806034483	test	pred_bal_0	imputation	leaky
+0.798337438	test	pred_bal_0	imputation	leaky
+0.804802956	test	pred_bal_0	imputation	leaky
+0.792487685	test	pred_bal_0	imputation	leaky
+0.789100985	test	pred_bal_0	imputation	leaky
+0.799876847	test	pred_bal_0	imputation	leaky
+0.768780788	test	pred_bal_1_lr1	imputation	leaky
+0.786637931	test	pred_bal_1_lr1	imputation	leaky
+0.772475369	test	pred_bal_1_lr1	imputation	leaky
+0.768780788	test	pred_bal_1_lr1	imputation	leaky
+0.768780788	test	pred_bal_1_lr1	imputation	leaky
+0.786637931	test	pred_bal_1_lr1	imputation	leaky
+0.768780788	test	pred_bal_1_lr1	imputation	leaky
+0.789716749	test	pred_bal_1_lr1	imputation	leaky
+0.768780788	test	pred_bal_1_lr1	imputation	leaky
+0.786637931	test	pred_bal_1_lr1	imputation	leaky
+0.768780788	test	pred_bal_1	imputation	leaky
+0.786637931	test	pred_bal_1	imputation	leaky
+0.772475369	test	pred_bal_1	imputation	leaky
+0.768780788	test	pred_bal_1	imputation	leaky
+0.778940887	test	pred_bal_1	imputation	leaky
+0.791256158	test	pred_bal_1	imputation	leaky
+0.768780788	test	pred_bal_1	imputation	leaky
+0.789716749	test	pred_bal_1	imputation	leaky
+0.768780788	test	pred_bal_1	imputation	leaky
+0.792795567	test	pred_bal_1	imputation	leaky
+0.816143498	training	model_bal_0	split-imputation	non_leaky
+0.816143498	training	model_bal_0	split-imputation	non_leaky
+0.816143498	training	model_bal_0	split-imputation	non_leaky
+0.816143498	training	model_bal_0	split-imputation	non_leaky
+0.816143498	training	model_bal_0	split-imputation	non_leaky
+0.816143498	training	model_bal_0	split-imputation	non_leaky
+0.816143498	training	model_bal_0	split-imputation	non_leaky
+0.816143498	training	model_bal_0	split-imputation	non_leaky
+0.816143498	training	model_bal_0	split-imputation	non_leaky
+0.816143498	training	model_bal_0	split-imputation	non_leaky
+0.799005654	training	model_bal_1	split-imputation	non_leaky
+0.811639696	training	model_bal_1	split-imputation	non_leaky
+0.811639696	training	model_bal_1	split-imputation	non_leaky
+0.799005654	training	model_bal_1	split-imputation	non_leaky
+0.811639696	training	model_bal_1	split-imputation	non_leaky
+0.811639696	training	model_bal_1	split-imputation	non_leaky
+0.799005654	training	model_bal_1	split-imputation	non_leaky
+0.811639696	training	model_bal_1	split-imputation	non_leaky
+0.799005654	training	model_bal_1	split-imputation	non_leaky
+0.811639696	training	model_bal_1	split-imputation	non_leaky
+0.788485222	test	pred_bal_0_lr1	split-imputation	non_leaky
+0.788485222	test	pred_bal_0_lr1	split-imputation	non_leaky
+0.788485222	test	pred_bal_0_lr1	split-imputation	non_leaky
+0.788485222	test	pred_bal_0_lr1	split-imputation	non_leaky
+0.788485222	test	pred_bal_0_lr1	split-imputation	non_leaky
+0.788485222	test	pred_bal_0_lr1	split-imputation	non_leaky
+0.788485222	test	pred_bal_0_lr1	split-imputation	non_leaky
+0.788485222	test	pred_bal_0_lr1	split-imputation	non_leaky
+0.788485222	test	pred_bal_0_lr1	split-imputation	non_leaky
+0.788485222	test	pred_bal_0_lr1	split-imputation	non_leaky
+0.784482759	test	pred_bal_0	split-imputation	non_leaky
+0.789408867	test	pred_bal_0	split-imputation	non_leaky
+0.800800493	test	pred_bal_0	split-imputation	non_leaky
+0.78479064	test	pred_bal_0	split-imputation	non_leaky
+0.780172414	test	pred_bal_0	split-imputation	non_leaky
+0.793719212	test	pred_bal_0	split-imputation	non_leaky
+0.788485222	test	pred_bal_0	split-imputation	non_leaky
+0.794027094	test	pred_bal_0	split-imputation	non_leaky
+0.778633005	test	pred_bal_0	split-imputation	non_leaky
+0.785714286	test	pred_bal_0	split-imputation	non_leaky
+0.780788177	test	pred_bal_1_lr1	split-imputation	non_leaky
+0.784174877	test	pred_bal_1_lr1	split-imputation	non_leaky
+0.784174877	test	pred_bal_1_lr1	split-imputation	non_leaky
+0.780788177	test	pred_bal_1_lr1	split-imputation	non_leaky
+0.784174877	test	pred_bal_1_lr1	split-imputation	non_leaky
+0.784174877	test	pred_bal_1_lr1	split-imputation	non_leaky
+0.780788177	test	pred_bal_1_lr1	split-imputation	non_leaky
+0.784174877	test	pred_bal_1_lr1	split-imputation	non_leaky
+0.780788177	test	pred_bal_1_lr1	split-imputation	non_leaky
+0.784174877	test	pred_bal_1_lr1	split-imputation	non_leaky
+0.780788177	test	pred_bal_1	split-imputation	non_leaky
+0.784174877	test	pred_bal_1	split-imputation	non_leaky
+0.784174877	test	pred_bal_1	split-imputation	non_leaky
+0.780788177	test	pred_bal_1	split-imputation	non_leaky
+0.784174877	test	pred_bal_1	split-imputation	non_leaky
+0.784174877	test	pred_bal_1	split-imputation	non_leaky
+0.780788177	test	pred_bal_1	split-imputation	non_leaky
+0.784174877	test	pred_bal_1	split-imputation	non_leaky
+0.780788177	test	pred_bal_1	split-imputation	non_leaky
+0.784174877	test	pred_bal_1	split-imputation	non_leaky

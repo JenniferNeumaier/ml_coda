@@ -1,7 +1,7 @@
 ---
-title: "1_pre_processing_data"
+title: "pre-processing"
 author: "Jennifer Neumaier"
-date: "2/24/2022"
+date: "6/23/2022"
 output: html_document
 ---
 
@@ -10,11 +10,6 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## Pre-Processing of Data
-
-```{r}
-setwd("D:/Master/Master Biologie/Sommersemester 2022/Master thesis/Github")
-```
-
 
 Importing libraries
 ```{r}
@@ -28,8 +23,8 @@ library("zCompositions")
 Importing source files
 ```{r}
 # source("./src/0_get_raw_data.R")
-source("./src/data_analysis.R")
-source("./src/convenience.R")
+source("data_analysis.R")
+source("convenience.R")
 ```
 
 
@@ -63,11 +58,13 @@ Two pre-processed versions will be created:
 ```{r}
 # percent.filter: 10% -> 0.10
 # relabund: 0.1% mean -> 0.001
-EstMB_abundances_10 <- taxa.filter(EstMB_abundances, percent.filter = 0.10, relabund.filter = 0.001)
-write.table(EstMB_abundances_10,"./data/processed/filtered/EstMB_abundances_10.txt", row.names = FALSE)
+EstMB_abundances <- read.table("../data/processed/EstMB_abundances.txt", header = TRUE)
 
-EstMB_abundances_50 <- taxa.filter(EstMB_abundances, percent.filter = 0.50, relabund.filter = 0.001)
-write.table(EstMB_abundances_50,"./data/processed/filtered/EstMB_abundances_50.txt", row.names = FALSE)
+EstMB_abundances_95 <- taxa.filter(EstMB_abundances, percent.filter = 0.95, relabund.filter = 0.001)
+write.table(EstMB_abundances_95,"../data/processed/filtered/EstMB_abundances_95.txt", row.names = FALSE)
+
+EstMB_abundances_90 <- taxa.filter(EstMB_abundances, percent.filter = 0.90, relabund.filter = 0.001)
+write.table(EstMB_abundances_90,"../data/processed/filtered/EstMB_abundances_90_non_imputed.txt", row.names = FALSE)
 ```
 
 Zero-Imputation EstMB

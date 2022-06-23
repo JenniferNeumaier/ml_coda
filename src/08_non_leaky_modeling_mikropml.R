@@ -20,21 +20,20 @@ if (length(args) == 0) {
   stop("At least one argument must be supplied (input file)", call. = FALSE)
 } 
 
-
 # Declare file path of data
-file_path <- "../data/processed/filtered/CRC_abundances_10.txt"
+file_path <- "../data/processed/filtered/EstMB_abundances_95.txt"
 
 # Declare file path for metadata
-metadata_file <- "../data/CRC/CRC_metadata.txt"
+metadata_file <- "../data/EstMB/EstMB_metadata.txt"
 
 # Declare Predictor
-predictor <- "Group" 
+predictor <- "I11" 
 
 # Transformation
-pre_processing <- "CLR"
+pre_processing <- "ALRr"
 
 # Number of repeats per data set
-n_repeats <- 10
+n_repeats <- 5
 
 # Declare model type
 model_name <- "glmnet"  #glmnet or xgboost
@@ -46,7 +45,7 @@ loss_function <- "AUC" # AUC or RMSE
 kfold <- 5
 
 # Declare number if CV times
-cv_times <- 10
+cv_times <- 5
 
 # Declare amount of training fraction
 training_frac <- as.numeric(0.8)
@@ -91,6 +90,10 @@ metadata <- read.table(metadata_file, header = TRUE)
 
 # rename column names
 # colnames(data_set) <- gsub("\\.", "_", colnames(data_set))
+metadata <- metadata %>%
+  mutate(E11 = ifelse(E11 == "1", "DT2", "healthy")) %>%
+  mutate(F41 = ifelse(F41 == "1", "PD", "healthy")) %>%
+  mutate(I11 = ifelse(I11 == "1", "HHD", "healthy"))
 
 # set variables
 merge_id <- names(metadata[1])
@@ -102,23 +105,6 @@ data_set <- data_set %>%
   left_join(metadata, by = merge_id) %>% 
   relocate(c(names(metadata))) %>% 
   dplyr::select(-c(merge_id, leftover_factors))
-
-
-# # Split the data
-# train_data <- data_set %>% 
-#   filter(!grepl(country, Country)) %>% 
-#   dplyr::select(-c(Country, Group))
-# 
-# test_data <- data_set %>% 
-#   filter(grepl(country, Country)) %>% 
-#   dplyr::select(-c(Country, Group))  
-
-# # save ids for data not belonging to selected country
-# idx <- data_set %>%
-#   rownames_to_column() %>%
-#   filter(!grepl(country, Country)) %>%
-#   `[[`("rowname") %>%
-#   as.numeric() 
 
 
 # Split the data
@@ -140,14 +126,16 @@ idx <- data_split$in_id
 
 train_data <- cbind(train_data[1], cmultRepl(train_data[,2:ncol(train_data)], output = method))
 
-train_data <- train_data %>% 
-  mutate_if(is.numeric, round, digits=3)
+train_data <- train_data %>%
+  mutate_if(is.numeric, round, digits=3) %>%
+  dplyr::select(-X.1)
 
 
 test_data <- cbind(test_data[1], cmultRepl(test_data[,2:ncol(test_data)], output = method))
 
-test_data <- test_data %>% 
-  mutate_if(is.numeric, round, digits=3)
+test_data <- test_data %>%
+  mutate_if(is.numeric, round, digits=3) %>%
+  dplyr::select(-X.1)
 
 
 print("Imputed data!")
@@ -159,34 +147,104 @@ print("Imputed data!")
 #                                                #
 #------------------------------------------------#
 
-set.seed(seed)
-train_data <- transformation(train_data, pre_processing)
-test_data <- transformation(test_data, pre_processing)
-
-
 if(pre_processing == "ALR_optimal"){
-  # rename columns
+  
+  set.seed(seed)
+
+  # split train data into IDs and features
+  id <- train_data[1]
+  features <- train_data[2:ncol(train_data)]
+  
+  # # find ALR reference
+  alr.refs <- FINDALR(features)
+
+  names(alr.refs$procrust.cor) <- colnames(features)
+  res_procrustes <- alr.refs$procrust.cor[order(alr.refs$procrust.cor, decreasing = TRUE)][1:20]
+
+  names(alr.refs$var.log) <- colnames(features)
+  res_variance <- alr.refs$var.log[order(alr.refs$var.log)][1:20]
+
+  diff <- intersect(names(res_procrustes), names(res_variance))
+  denominator <- diff[1]
+  
+  ALR_list <- ALR(features, denom = which(colnames(features) == denominator))
+  train_data <- cbind(id, as.data.frame(ALR_list$LR))
   colnames(train_data) <- gsub("\\/.*", "", colnames(train_data))
+  
+  # split test data into IDs and features 
+  id <- test_data[1]
+  features <- test_data[2:ncol(test_data)]
+  
+  # use ALR reference from train data
+  ALR_list <- ALR(features, denom = which(colnames(features) == denominator))
+  test_data <- cbind(id, as.data.frame(ALR_list$LR))
   colnames(test_data) <- gsub("\\/.*", "", colnames(test_data))
+
+  } else if(pre_processing == "ALR_worst") {
+    set.seed(seed)
+    
+    # split train data into IDs and features
+    id <- train_data[1]
+    features <- train_data[2:ncol(train_data)]
+    
+    # # find ALR reference
+    alr.refs <- FINDALR(features)
+    
+    names(alr.refs$procrust.cor) <- colnames(features)
+    res_procrustes <- alr.refs$procrust.cor[order(alr.refs$procrust.cor)][1:20]
+    
+    names(alr.refs$var.log) <- colnames(features)
+    res_variance <- alr.refs$var.log[order(alr.refs$var.log)][1:20]
+    
+    diff <- intersect(names(res_procrustes), names(res_variance, decreasing = TRUE))
+    denominator <- diff[1]
+    
+    ALR_list <- ALR(features, denom = which(colnames(features) == denominator))
+    train_data <- cbind(id, as.data.frame(ALR_list$LR))
+    colnames(train_data) <- gsub("\\/.*", "", colnames(train_data))
+    
+    # split test data into IDs and features 
+    id <- test_data[1]
+    features <- test_data[2:ncol(test_data)]
+    
+    # use ALR reference from train data
+    ALR_list <- ALR(features, denom = which(colnames(features) == denominator))
+    test_data <- cbind(id, as.data.frame(ALR_list$LR))
+    colnames(test_data) <- gsub("\\/.*", "", colnames(test_data))
+    
+  } else if(pre_processing == "ALR_random") {
+    set.seed(seed)
+    
+    # split train data into IDs and features
+    id <- train_data[1]
+    features <- train_data[2:ncol(train_data)]
+    
+    denominator <- sample(1:length(features), 1)
+    
+    ALR_list <- ALR(features, denom = denominator)
+    train_data <- cbind(id, as.data.frame(ALR_list$LR))
+    colnames(train_data) <- gsub("\\/.*", "", colnames(train_data))
+    
+    # split test data into IDs and features 
+    id <- test_data[1]
+    features <- test_data[2:ncol(test_data)]
+    
+    # use ALR reference from train data
+    ALR_list <- ALR(features, denom = denominator)
+    test_data <- cbind(id, as.data.frame(ALR_list$LR))
+    colnames(test_data) <- gsub("\\/.*", "", colnames(test_data))
+    
+  } else {
   
-  # remove denominator of train_data from test_data
-  diff <- setdiff(colnames(test_data), colnames(train_data))
-  test_data[diff] <- NULL
+  set.seed(seed)
+  train_data <- transformation(train_data, pre_processing)
+  test_data <- transformation(test_data, pre_processing)
   
-  # remove denominator of test_data from train_data
-  diff <- setdiff(colnames(train_data), colnames(test_data))
-  train_data[diff] <- NULL
 }
 
 # combine train and test set 
 data_set <- rbind(train_data, test_data)
 
-
-# # second Merge
-# data_set <- data_set %>%
-#   left_join(metadata, by = merge_id) %>%
-#   relocate(c(names(metadata))) %>%
-#   dplyr::select(-c(SampleID, Country, leftover_factors))
 
 
 # Mikropml ----
@@ -229,8 +287,6 @@ for (j in counter) {
   
 }
 
-
-
 # output ----
 #------------------------------------------------#
 #                                                #
@@ -239,8 +295,6 @@ for (j in counter) {
 #------------------------------------------------#
 
 ## mikropml
-
-
 # curating training set
 training_df <- data.frame("loss" = unlist(mikrop_training),
                           "type" = "training",
@@ -255,5 +309,5 @@ test_df <- data.frame("loss" = unlist(mikrop_test),
 # combine and outout
 final <- rbind(training_df, test_df)
 
-write.table(final, paste("../out/CRC_nonleaky", predictor, model_name, loss_function, pre_processing, ".txt", sep = "_", collapse = NULL), row.names = FALSE)
+write.table(final, paste("../out/simputation_stransformation", predictor, model_name, loss_function, pre_processing, ".txt", sep = "_", collapse = NULL), row.names = FALSE)
 

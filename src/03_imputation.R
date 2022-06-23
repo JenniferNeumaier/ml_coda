@@ -8,14 +8,9 @@
 #------------------------------------------------#
 
 #!/usr/bin/env Rscript
-args = commandArgs(trailingOnly = TRUE)             
-#args = c("RData/Abundance_filtered_species_p10a001.rds", "RData/Data_master.rds", "LASSO", "CLR", "1", "5", "SET2", "Rdata/ML", "F41", "I10") 
+args = commandArgs(trailingOnly = TRUE)            
 cat(args, sep = "\n")
 
-
-# Expected input:
-#        1                  2             3     
-# input_data_file      model_name       seed
 
 # Test if there is at least one argument: if not, return an error
 if (length(args) == 0) {

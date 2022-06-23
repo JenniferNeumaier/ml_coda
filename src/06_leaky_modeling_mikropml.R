@@ -1,7 +1,3 @@
-# TODO:
-# - rewrite for a single data set
-
-
 # Command line arguments ----
 #------------------------------------------------#
 #                                                #
